@@ -1,4 +1,4 @@
-import { readScore } from "../readScore";
+import { readScore } from "../src/readScore";
 
 describe("Test readScore()", () => {
 
