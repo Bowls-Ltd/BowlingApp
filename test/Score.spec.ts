@@ -5,6 +5,4 @@ describe('Score tests', () => {
         let score = new Score()
         expect(score.getTotal()).toBe(0)
     })
-
-    
 })
