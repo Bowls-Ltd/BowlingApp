@@ -3,16 +3,16 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: 'development',
-  entry: './src/script.ts',
+  entry: './src/index.ts',
   module: {
     rules: [
       {
-        use: 'ts-loader',
+        use: [{loader: 'ts-loader', options: {onlyCompileBundledFiles: true}}],
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts'],
   },
   plugins: [
     new CopyPlugin({
