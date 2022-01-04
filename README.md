@@ -4,45 +4,39 @@ Bowling App
 
 # Docker
 
-## Build image
+## Build the image
 
 ```shell
-docker build --no-cache -t bowling-app .
+docker build \
+  --no-cache \
+  --build-arg "UID=$(id -u)" \
+  --build-arg "GID=$(id -g)" \
+  -t bowling-app .
 ```
 
-## Create container
+## Create the containers
 
-### Build container
+### Create the "build" container
 
 ```shell
 docker create \
-  -v "$(pwd)/src":/app/src:ro \
-  -v "$(pwd)/build":/app/build \
-  -v "$(pwd)/tsconfig.json":/app/tsconfig.json \
-  -v "$(pwd)/package.json":/app/package.json \
-  -v "$(pwd)/webpack.config.js":/app/webpack.config.js \
+  -v "$(pwd)":/app/opt \
   --name bowling-build \
-  bowling-app build
+  bowling-app run build
 ```
 
-### Test container
+### Create the "test" container
 
 ```shell
 docker create \
-  -v "$(pwd)/src":/app/src:ro \
-  -v "$(pwd)/build":/app/build \
-  -v "$(pwd)/tsconfig.json":/app/tsconfig.json \
-  -v "$(pwd)/package.json":/app/package.json \
-  -v "$(pwd)/webpack.config.js":/app/webpack.config.js \
-  -v "$(pwd)/babel.config.js":/app/babel.config.js \
-  -v "$(pwd)/jest.config.ts":/app/jest.config.ts \
+  -v "$(pwd)":/app/opt \
   --name bowling-test \
-  bowling-app test
+  bowling-app run test
 ```
 
-## Run
+## Run the containers
 
-### Run build
+### Run the "build" container
 
 Runs `build` script from `package.json`.
 
@@ -50,7 +44,7 @@ Runs `build` script from `package.json`.
 docker start -a bowling-build
 ```
 
-### Run test
+### Run "test" container
 
 Runs `test` script from `package.json`.
 
