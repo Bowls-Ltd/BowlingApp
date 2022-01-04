@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Salut</title>
+    <title>Bowling</title>
     <script src="../build/bundle.js"></script>
 </head>
 <body>
-    <h1>Hello : Press F12 and go to console for a spectacular game ...</h1>
+    <h1>Bowling</h1>
+    <form>
+      <label for="input_text">Enter score:</label>
+      <input type="text" id="input_text" minlength="1" maxlength="2" required>
+      <button id="submit_button" type="button">Submit</button>
+    </form>
+    <p id="player_1">Player 1 :</p>
+    <p id="player_2">Player 2 :</p> 
 </body>
 </html>
