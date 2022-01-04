@@ -19,7 +19,7 @@ docker build \
 ### Create the "build" container
 
 ```shell
-docker create \
+docker create -t \
   -v "$(pwd)":/app/opt \
   --name bowling-build \
   bowling-app run build
@@ -28,7 +28,7 @@ docker create \
 ### Create the "test" container
 
 ```shell
-docker create \
+docker create -t \
   -v "$(pwd)":/app/opt \
   --name bowling-test \
   bowling-app run test
