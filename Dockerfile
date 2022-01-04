@@ -5,9 +5,10 @@ ENV NODE_ENV=development
 
 WORKDIR /app
 
-COPY "package.json" "./"
+COPY ./package.json .
 
 RUN npm install
 ENV PATH="/app/node_modules/.bin:${PATH}"
 
-CMD [ "npm", "run", "build" ]
+ENTRYPOINT [ "npm", "run" ]
+CMD [ "build" ]
