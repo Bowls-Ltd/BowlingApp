@@ -5,8 +5,9 @@ ENV NODE_ENV=development
 
 WORKDIR /app
 COPY ./package.json .
+# https://nodejs.org/api/modules.html#loading-from-node_modules-folders
 RUN npm install
-ENV PATH="/app/etc/node_modules/.bin:${PATH}"
+ENV PATH="/app/node_modules/.bin:${PATH}"
 
 WORKDIR /app/opt
 ARG UID=1000
