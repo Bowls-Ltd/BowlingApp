@@ -13,7 +13,9 @@
     "clean": "rm -rf ./build/*",
     "prebuild": "npm run clean",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "docker-build": "docker start -a bowling-build",
+    "docker-test": "docker start -a bowling-test"
   },
   "dependencies": {
     "@babel/core": "^7.16.7",
