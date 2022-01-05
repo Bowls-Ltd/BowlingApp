@@ -58,8 +58,7 @@ class PlayerTurn {
     }
 
     isStrike(): boolean {
-        if (this.shots.length >= 1)
-            return this.shots[0] === 10
+        return this.shots.length >= 1 && this.shots[0] === 10
     }
 
     isSpare(): boolean {
