@@ -1,6 +1,6 @@
 import { readScore } from "../src/readScore";
 
-describe("Test readScore()", () => {
+describe.skip("Test readScore()", () => {
 
     test("Null input", () => {
         let input = null 
