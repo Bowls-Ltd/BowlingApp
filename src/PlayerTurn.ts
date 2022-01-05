@@ -17,10 +17,13 @@ class PlayerTurn {
             throw new Error("invalid input")
         if (pinsNb === null || pinsNb === undefined)
             throw new Error("invalid input")
+        if (this.isOver())
+            throw new Error("your turn as over")
         if (pinsNb > this.remainingPins)
             throw new Error("total pins down cannot exceed 10")
 
         this.shots.push(pinsNb)
+        this.remainingPins -= pinsNb       
 
         if(this.isLastTurn) {
             if(this.isStrike() && this.shots.length === 1)
@@ -33,7 +36,6 @@ class PlayerTurn {
             }
         }
                 
-        this.remainingPins -= pinsNb       
     }
 
     getShots() {
