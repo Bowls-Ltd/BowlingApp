@@ -352,7 +352,6 @@ describe("Test class PlayerTurn", () => {
  
 
 
-
         test("2 tries on 10th turn", () => {
             let o = new PlayerTurn(true); // last turn
 
