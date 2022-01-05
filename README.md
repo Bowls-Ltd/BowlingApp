@@ -44,7 +44,7 @@ Runs `build` script from `package.json`.
 docker start -a bowling-build
 ```
 
-### Run "test" container
+### Run the "test" container
 
 Runs `test` script from `package.json`.
 
