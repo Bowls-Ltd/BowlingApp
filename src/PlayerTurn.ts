@@ -52,9 +52,9 @@ class PlayerTurn {
 
     isOver(): boolean {
         if (this.isLastTurn)
-            return this.shots.length === 3
+            return this.shots.length === 3 || (this.shots.length === 2 && !this.isSpare() && !this.isStrike())
         else
-            return this.shots.length === 2
+            return this.shots.length === 2 || this.isStrike()
     }
 
     isStrike(): boolean {
