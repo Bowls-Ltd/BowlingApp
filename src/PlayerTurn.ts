@@ -19,6 +19,10 @@ class PlayerTurn {
             throw new Error("invalid input")
         if ( ! this.isLastTurn && this.shots.length === 2)
             throw new Error("cannot play more than twice")
+        if ( ! this.isLastTurn && this.isStrike())
+            throw new Error("cannot play more than twice")
+        if (this.isLastTurn && this.shots.length === 2 && !this.isStrike() && !this.isSpare())
+            throw new Error("cannot play more than twice")
         if (this.isLastTurn && this.shots.length === 3)
             throw new Error("cannot play more than thrice")
         if (pinsNb > this.remainingPins)
@@ -29,15 +33,18 @@ class PlayerTurn {
         if(this.isLastTurn) {
             if(this.isStrike() && this.shots.length === 1)
                 this.remainingPins = 10
-            if(this.shots.length === 2) {
+            else if(this.shots.length === 2) {
                 if(this.isStrike() && this.shots[1] === 10)
                     this.remainingPins = 10
-                if(this.isSpare())
+                else if(this.isSpare())
                     this.remainingPins = 10
-            }
+                else
+                    this.remainingPins -= pinsNb 
+            } else
+                this.remainingPins -= pinsNb   
+        } else {
+            this.remainingPins -= pinsNb       
         }
-                
-        this.remainingPins -= pinsNb       
     }
 
     getShots() {
@@ -53,19 +60,43 @@ class PlayerTurn {
     }
 
     isOver(): boolean {
-        if (this.isLastTurn)
-            return this.shots.length === 3
-        else
-            return this.shots.length === 2
+        if (this.shots.length == 0) {
+            return false
+        } else if (this.shots.length == 1) {
+            if (this.isLastTurn) {
+                return false
+            } else {
+                if(this.isStrike()) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        } else if (this.shots.length == 2) {
+            if (this.isLastTurn) {
+                if (this.isStrike()) {
+                    return false
+                } else if(this.isSpare()) {
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
     }
 
     isStrike(): boolean {
         if (this.shots.length >= 1)
             return this.shots[0] === 10
+        else return false
     }
 
     isSpare(): boolean {
-        if (this.shots.length === 2 && this.pinsSum() === 10)
+        if (this.shots.length >= 2 && this.shots[0] + this.shots[1] === 10)
             return true
         else
             return false
