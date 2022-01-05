@@ -81,8 +81,7 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.pinsSum()).toBe(0);
 
             o.addPins(0);
-            expect(o.pinsSum()).toBe(6);
-            expect(o.pinsSum()).toBe(10);
+            expect(o.pinsSum()).toBe(0);
             expect(o.IsStrike()).toBe(false);
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(false);
@@ -105,8 +104,7 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.pinsSum()).toBe(0);
 
             o.addPins(0);
-            expect(o.pinsSum()).toBe(6);
-            expect(o.pinsSum()).toBe(10);
+            expect(o.pinsSum()).toBe(0);
             expect(o.IsStrike()).toBe(false);
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(false);
@@ -170,7 +168,36 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.pinsSum()).toBe(10);
 
             o.addPins(5);
-            expect(o.pinsSum()).toBe(5);
+            expect(o.pinsSum()).toBe(15);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(true);
+            expect(o.IsOver()).toBe(true);
+            expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
+        });
+
+
+        test("spare and strike on 10th turn", () => {
+            let o = PlayerTurn(true); // last turn
+
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(0);
+
+            o.addPins(9);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(9);
+
+            o.addPins(1);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(true);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(10);
+
+            o.addPins(10);
+            expect(o.pinsSum()).toBe(20);
             expect(o.IsStrike()).toBe(false);
             expect(o.IsSpare()).toBe(true);
             expect(o.IsOver()).toBe(true);
@@ -236,7 +263,121 @@ describe.skip("Test class PlayerTurn", () => {
         });
 
 
-        test("more than 30 strikes down 10th turn", () => {
+
+        test("2 strikes and 1 try on 10th turn", () => {
+            let o = PlayerTurn(true); // last turn
+
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(0);
+
+            o.addPins(10);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(10);
+
+            o.addPins(10);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(20);
+
+            o.addPins(2);
+            expect(o.pinsSum()).toBe(22);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(true);
+            expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
+        });
+
+
+        test("strike and spare on 10th turn", () => {
+            let o = PlayerTurn(true); // last turn
+
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(0);
+
+            o.addPins(10);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(10);
+
+            o.addPins(8);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(18);
+
+            o.addPins(2);
+            expect(o.pinsSum()).toBe(20);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(true);
+            expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
+        }
+
+
+        test("more than 10 pins down on 10th turn", () => {
+            let o = PlayerTurn(true); // last turn
+
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(0);
+
+            o.addPins(9);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(9);
+
+            expect(() => o.addPins(9)).toThrow('total pins down cannot exceed 10');
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(9);
+
+            o.addPins(0);
+            expect(o.pinsSum()).toBe(9);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(true);
+            expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
+        }
+ 
+
+
+
+        test("2 tries on 10th turn", () => {
+            let o = PlayerTurn(true); // last turn
+
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(0);
+
+            o.addPins(4);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+            expect(o.pinsSum()).toBe(4);
+
+            o.addPins(1);
+            expect(o.IsStrike()).toBe(false);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(true);
+            expect(o.pinsSum()).toBe(5);
+            
+            expect(() => o.addPins(1)).toThrow('cannot play more than twice');
+        });
+
+
+        test("(2) more than 10 pins down on 10th turn", () => {
             let o = PlayerTurn(true); // last turn
 
             expect(o.IsStrike()).toBe(false);
@@ -254,14 +395,20 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.IsStrike()).toBe(true);
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(false);
-            expect(o.pinsSum()).toBe(20);
+            expect(o.pinsSum()).toBe(19);
 
-            expect(() => o.addPins(9)).toThrow('total pins down cannot exceed 30 on last turn');
-            expect(o.pinsSum()).toBe(30);
+            expect(() => o.addPins(9)).toThrow('total pins down cannot exceed 10');
+            expect(o.pinsSum()).toBe(19);
+            expect(o.IsStrike()).toBe(true);
+            expect(o.IsSpare()).toBe(false);
+            expect(o.IsOver()).toBe(false);
+
+            o.addPins(0);
+            expect(o.pinsSum()).toBe(19);
             expect(o.IsStrike()).toBe(true);
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
+            expect(() => o.addPins(1)).toThrow('cannot play more than twice');
         });
 
 
