@@ -319,7 +319,7 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(true);
             expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
-        }
+        });
 
 
         test("more than 10 pins down on 10th turn", () => {
@@ -348,7 +348,7 @@ describe.skip("Test class PlayerTurn", () => {
             expect(o.IsSpare()).toBe(false);
             expect(o.IsOver()).toBe(true);
             expect(() => o.addPins(1)).toThrow('cannot play more than thrice');
-        }
+        });
  
 
 
