@@ -18,7 +18,7 @@ class PlayerTurn {
         if (pinsNb === null || pinsNb === undefined)
             throw new Error("invalid input")
         if (this.isOver())
-            throw new Error("your turn as over")
+            throw new Error("your turn is over")
         if (pinsNb > this.remainingPins)
             throw new Error("total pins down cannot exceed 10")
 
@@ -62,10 +62,7 @@ class PlayerTurn {
     }
 
     isSpare(): boolean {
-        if (this.shots.length === 2 && this.pinsSum() === 10)
-            return true
-        else
-            return false
+        return (this.shots.length >= 2 && this.shots[0]+this.shots[1] === 10)
     }
 }
 
