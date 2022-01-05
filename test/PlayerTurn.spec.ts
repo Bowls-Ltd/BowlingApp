@@ -27,7 +27,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
 
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -45,7 +45,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
         test("1 spare", () => {
@@ -67,7 +67,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(true);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
 
         });
 
@@ -91,7 +91,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(true);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -114,7 +114,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
         test("more than 10 pins down", () => {
@@ -142,7 +142,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -172,7 +172,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(true);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -201,7 +201,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(true);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
         test("3 strikes on 10th turn", () => {
@@ -229,7 +229,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -259,7 +259,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -289,7 +289,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -318,7 +318,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -347,7 +347,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(false);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
  
 
@@ -373,7 +373,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isOver()).toBe(true);
             expect(o.pinsSum()).toBe(5);
             
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
@@ -408,7 +408,7 @@ describe("Test class PlayerTurn", () => {
             expect(o.isStrike()).toBe(true);
             expect(o.isSpare()).toBe(false);
             expect(o.isOver()).toBe(true);
-            expect(() => o.addPins(1)).toThrow('your turn as over');
+            expect(() => o.addPins(1)).toThrow('your turn is over');
         });
 
 
