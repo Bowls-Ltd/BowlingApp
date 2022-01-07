@@ -11,11 +11,9 @@ class PlayerTurn {
     }
 
     addPins(pinsNb: number): void {
-        if (pinsNb < 0 || pinsNb > 10)
-            throw new Error("invalid input")
         if (!Number.isInteger(pinsNb))
             throw new Error("invalid input")
-        if (pinsNb === null || pinsNb === undefined)
+        if (pinsNb < 0 || pinsNb > 10)
             throw new Error("invalid input")
         if (this.isOver())
             throw new Error("your turn is over")
