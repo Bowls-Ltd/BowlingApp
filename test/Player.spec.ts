@@ -2,17 +2,19 @@ import {Player} from "../src/Player";
 import {PlayerTurn} from "../src/PlayerTurn";
 
 
-function turnsFromArray(turns: Array<Array<number>>): Array<PlayerTurn> {
-    let playerTurns: Array<PlayerTurn> = Array<PlayerTurn>(turns.length);
-    for (let i = 0; i < turns.length; i++) {
-        playerTurns[i] = new PlayerTurn(false);
-        playerTurns[i]['shots'] = turns[i];
+function turnsFromArray(turns: Array<Array<number>>, isLastTurn: Array<boolean> = null): Array<PlayerTurn> {
+    if (isLastTurn === null) {
+        isLastTurn = turns.map(() => false);
     }
-    return playerTurns;
+    return turns.map((turn: Array<number>, index: number) => {
+        let playerTurn = new PlayerTurn(isLastTurn[index]);
+        playerTurn['shots'] = turn;
+        return playerTurn;
+    });
 }
 
 describe("Test Player class", () => {
-    describe.skip("Player.playTurn() function", () => {
+    describe("Player.playTurn() function", () => {
         test("Adds a turn to the Player's turn", () => {
             let player = new Player("Toto");
             expect(player.getTurns().length).toStrictEqual(0);
