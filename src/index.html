@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Bowling</title>
     <script src="bundle.js"></script>
 </head>
 <body>
     <h1>Bowling</h1>
     <form>
-      <label for="input_text">Enter score:</label>
-      <input type="text" id="input_text" minlength="1" maxlength="2" required>
-      <button id="submit_button" type="button">Submit</button>
+        <label for="input_text">Enter score:</label>
+        <input type="text" id="input_text" minlength="1" maxlength="2" required>
+        <button id="submit_button" type="button">Submit</button>
     </form>
-    <p id="player_1">Player 1 :</p>
-    <p id="player_2">Player 2 :</p> 
+    <table>
+        <tr>
+            <td>
+                <p>Player 1 :</p>
+            </td>
+            <td>
+                <p id="player_1_turn"></p>
+            <td>
+        </tr>
+        <tr>
+            <td>
+                <p>Player 1 :</p>
+            </td>
+            <td>
+                <p id="player_1_score"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Player 2 :</p>
+            </td>
+            <td>
+                <p id="player_2_turn"></p>
+            <td>
+        </tr>
+        <tr>
+            <td>
+                <p>Player 2 :</p>
+            </td>
+            <td>
+                <p id="player_2_score"></p>
+            </td>
+        <tr>
+    </table>
 </body>
 </html>
