@@ -5,15 +5,22 @@ class Player {
     private name: string;
     private score: Array<number>;
 
-    constructor(name: string) {
+    public constructor(name: string) {
         this.name = name;
+        this.turns = Array<PlayerTurn>();
+        this.score = Array<number>();
     }
 
     public playTurn(): void {
         throw new Error("Not implemented...");
     }
 
+    public getTurns(): Array<PlayerTurn> {
+        return this.turns;
+    }
+
     public computeAccumulatedScores(): Array<number> {
+        this.score = Array<number>(this.turns.length);
         for (let i = 0; i < this.turns.length; i++) {
             this.computeScore(i);
         }
@@ -21,7 +28,10 @@ class Player {
     }
 
     private computeScore(i: number) {
-        this.score[i] = this.turns[i].skittlesSum();
+        this.score[i] = this.turns[i].pinsSum();
+        if (i > 0) {
+            this.score[i] += this.score[i - 1];
+        }
 
         if (this.turns[i].isStrike()) {
             let [nextTurnIdx, nextShotIdx] = this.getNextShotIdx(i, 0);
@@ -47,7 +57,7 @@ class Player {
         if (shotIdx + 1 < this.turns[turnIdx].getShots().length) {
             return [turnIdx, shotIdx + 1];
         } else {
-            if (turnIdx + 1 < this.turns.length) {
+            if (turnIdx + 1 < this.turns.length && this.turns[turnIdx + 1].getShots().length > 0) {
                 return [turnIdx + 1, 0];
             } else {
                 return [-1, -1]; // out of range
