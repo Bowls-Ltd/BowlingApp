@@ -3,11 +3,38 @@ import {PlayerTurn} from "./PlayerTurn"
 class Player {
     private turns: Array<PlayerTurn>;
     private name: string;
+    private currentTurn : PlayerTurn;
 
     public constructor(name: string) {
         this.name = name;
         this.turns = Array<PlayerTurn>();
+        this.currentTurn = null;
     }
+
+    public makeTry(nb : number) {
+        if (this.turns.length == 10) {
+            throw new Error("cannot play more than 10 turns");
+        }
+        if (this.currentTurn === null) {
+            throw new Error("ERROR");
+        }
+        
+        this.currentTurn.addPins(nb);
+
+        if (this.currentTurn.isOver()) {
+            this.turns.push(this.currentTurn);
+            this.currentTurn = null;
+        }
+    }
+
+    public isPlaying() : boolean {
+        return !(this.currentTurn === null);
+    }
+
+    public play() {
+        this.currentTurn = new PlayerTurn(this.turns.length == 9);
+    }
+
 
     public playTurn(): void {
         if (this.turns.length == 10) {
