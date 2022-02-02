@@ -64,13 +64,13 @@ describe("Test Player class", () => {
         test("Turns empty", () => {
             let player = new Player("Toto");
             player['turns'] = turnsFromArray([[]]);
-            expect(player['getNextShotIdx'](0, 0)).toStrictEqual([-1, -1]);
+            expect(player['getNextShotIdx'](0, 0)).toStrictEqual(null);
             // player['turns'] = turnsFromArray([[0,0], [0,0], [0,0]]);
         });
         test("No next shot", () => {
             let player = new Player("Toto");
             player['turns'] = turnsFromArray([[0, 0]]);
-            expect(player['getNextShotIdx'](0, 1)).toStrictEqual([-1, -1]);
+            expect(player['getNextShotIdx'](0, 1)).toStrictEqual(null);
         });
         test("Valid next shot (same turn)", () => {
             let player = new Player("Toto");

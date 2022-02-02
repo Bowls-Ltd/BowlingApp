@@ -3,51 +3,17 @@
 Bowling App
 
 # Docker
+For Linux only.
 
-## Build the image
-
+## Build
 ```shell
-docker build \
-  --no-cache \
-  --build-arg "UID=$(id -u)" \
-  --build-arg "GID=$(id -g)" \
-  -t bowling-app .
+# install the dependencies
+./docker-npm install
+# transpile *.ts files to *.js
+./docker-npm run build
 ```
 
-## Create the containers
-
-### Create the "build" container
-
+## Test
 ```shell
-docker create -t \
-  -v "$(pwd)":/app/opt \
-  --name bowling-build \
-  bowling-app run build
-```
-
-### Create the "test" container
-
-```shell
-docker create -t \
-  -v "$(pwd)":/app/opt \
-  --name bowling-test \
-  bowling-app run test
-```
-
-## Run the containers
-
-### Run the "build" container
-
-Runs `build` script from `package.json`.
-
-```shell
-docker start -a bowling-build
-```
-
-### Run the "test" container
-
-Runs `test` script from `package.json`.
-
-```shell
-docker start -a bowling-test
+./docker-npm run test
 ```
