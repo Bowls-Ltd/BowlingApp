@@ -1,4 +1,4 @@
-function readScore(input: String) {
+function readScore(input: String): number {
     return null
 }
 
