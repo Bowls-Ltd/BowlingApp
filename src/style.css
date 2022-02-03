@@ -1,0 +1,19 @@
+.player-view {
+    display: flexbox;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.player-view-info {
+    font-size: 20px;
+}
+.player-view-history {
+    display: flexbox;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.player-view-turns {
+    width: 100%;
+}
+.player-view-scores {
+    width: 100%;
+}
