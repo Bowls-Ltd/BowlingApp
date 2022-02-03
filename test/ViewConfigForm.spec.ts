@@ -28,14 +28,25 @@ beforeEach(() => {
 describe('ViewConfigForm', () => {
     test('Init', () => {
         new ViewConfigForm()
-        const divForm = (document.querySelector('#nb-players-form'))
+
+        const divForm = (document.querySelector('#config-form'))
         expect(divForm).toBeDefined()
-        const title = divForm.querySelector('#nb-players-title')
-        expect(title).toBeDefined()
-        expect(title.innerHTML).toBe("Veuillez saisir le nombre de joueur :")
-        const inputNb = divForm.querySelector('#nb-players-input')
-        expect(inputNb).toBeDefined()
-        const button = divForm.querySelector('#nb-players-button')
+
+        const nplayersTitle = divForm.querySelector('#nb-players-title')
+        expect(nplayersTitle).toBeDefined()
+        expect(nplayersTitle.innerHTML).toBe("Veuillez saisir le nombre de joueur :")
+
+        const nplayersInput = divForm.querySelector('#nb-players-input')
+        expect(nplayersInput).toBeDefined()
+
+        const npinsTitle = divForm.querySelector('#nb-pins-title')
+        expect(npinsTitle).toBeDefined()
+        expect(npinsTitle.innerHTML).toBe("Veuillez saisir le nombre de quilles :")
+
+        const npinsInput = divForm.querySelector('#nb-pins-input')
+        expect(npinsInput).toBeDefined()
+
+        const button = divForm.querySelector('#validate-button')
         expect(button).toBeDefined()
         expect(button.innerHTML).toBe("Valider")
     })
