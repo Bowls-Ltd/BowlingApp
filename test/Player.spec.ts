@@ -59,6 +59,36 @@ describe("Test Player class", () => {
             player['turns'] = turnsFromArray([[10], [7, 2], [4, 5]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([19, 28, 37]);
         });
+        test("10th turn: spare then strike", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [9, 1, 10]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 167, 187]);
+        });
+        test("10th turn: strike then nothing", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 2, 6]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 186]);
+        });
+        test("10th turn: strike then spare", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 7, 3]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 188]);
+        });
+        test("10th turn: strike then strike then nothing", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 10, 1]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 189]);
+        });
+        test("10th turn: strike then strike then strike", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 10, 10]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 198]);
+        });
+        test("9th turn: strike = 2 next rolls (and not entire 10th frame)", () => {
+            let player = new Player("Jack");
+            player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [10], [10, 10, 10]]);
+            expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 178, 208]);
+        });
     });
     describe("Player.getNextShotIdx() function", () => {
         test("Turns empty", () => {
