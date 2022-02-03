@@ -11,6 +11,10 @@ class Player {
         this.currentTurn = null;
     }
 
+    public getName() : string {
+        return this.name;
+    }
+
     public makeTry(nb : number) {
         if (this.turns.length == 10) {
             throw new Error("cannot play more than 10 turns");
