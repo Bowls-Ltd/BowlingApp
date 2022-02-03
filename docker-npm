@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[[ $(docker image ls npm | wc -l) -gt 1 ]] || \
+docker build \
+  --no-cache \
+  --build-arg "UID=$(id -u)" \
+  --build-arg "GID=$(id -g)" \
+  -t npm .
+
+docker run --rm -t -v "$(pwd)":/app npm "$@"

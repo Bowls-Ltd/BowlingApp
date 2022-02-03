@@ -58,25 +58,30 @@ class Player {
     public computeAccumulatedScores(): Array<number> {
         let getShot = (turnIdx, shotIdx) => this.turns[turnIdx].getShots().at(shotIdx);
         let cumulatedScore = 0;
+        let nextIndexes: Array<number> | null;
+        let nextTurnIdx: number, nextShotIdx: number;
 
         return this.turns.map((turn, i) => {
             let score = turn.pinsSum();
 
             if (turn.isStrike()) {
-                let [nextTurnIdx, nextShotIdx] = this.getNextShotIdx(i, 0);
-                if (nextShotIdx != -1) { // next shot available
+                nextIndexes = this.getNextShotIdx(i, 0); // can be null
+                if (nextIndexes !== null) { // next shot available
+                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
                     score += getShot(nextTurnIdx, nextShotIdx);
 
-                    [nextTurnIdx, nextShotIdx] = this.getNextShotIdx(nextTurnIdx, nextShotIdx);
-                    if (nextShotIdx != -1) { // next, next shot available
+                    nextIndexes = this.getNextShotIdx(nextTurnIdx, nextShotIdx); // can be null
+                    if (nextIndexes !== null) { // next, next shot available
+                        [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
                         score += getShot(nextTurnIdx, nextShotIdx);
                     }
                 }
             }
 
             if (this.turns[i].isSpare()) {
-                let [nextTurnIdx, nextShotIdx] = this.getNextShotIdx(i, 1);
-                if (nextShotIdx != -1) { // next shot available
+                nextIndexes = this.getNextShotIdx(i, 1); // can be null
+                if (nextIndexes !== null) { // next shot available
+                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
                     score += getShot(nextTurnIdx, nextShotIdx);
                 }
             }
@@ -85,14 +90,14 @@ class Player {
         });
     }
 
-    private getNextShotIdx(turnIdx: number, shotIdx: number): Array<number> {
+    private getNextShotIdx(turnIdx: number, shotIdx: number): Array<number> | null {
         if (shotIdx + 1 < this.turns[turnIdx].getShots().length) {
             return [turnIdx, shotIdx + 1];
         } else {
             if (turnIdx + 1 < this.turns.length && this.turns[turnIdx + 1].getShots().length > 0) {
                 return [turnIdx + 1, 0];
             } else {
-                return [-1, -1]; // out of range
+                return null; // out of range
             }
         }
     }
