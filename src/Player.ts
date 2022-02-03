@@ -16,7 +16,7 @@ class Player {
     }
 
     public makeTry(nb : number) {
-        if (this.turns.length == 10) {
+        if (this.turns.length === 10) {
             throw new Error("cannot play more than 10 turns");
         }
         if (this.currentTurn === null) {
@@ -36,16 +36,16 @@ class Player {
     }
 
     public play() {
-        this.currentTurn = new PlayerTurn(this.turns.length == 9);
+        this.currentTurn = new PlayerTurn(this.turns.length === 9);
     }
 
 
     public playTurn(): void {
-        if (this.turns.length == 10) {
+        if (this.turns.length === 10) {
             throw new Error("cannot play more than 10 turns");
         }
 
-        let turn = new PlayerTurn(this.turns.length == 9);
+        let turn = new PlayerTurn(this.turns.length === 9);
         let randInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 
         while (!turn.isOver()) {
