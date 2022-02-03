@@ -7,7 +7,7 @@ function readScore(input: String) {
     if (nb !== nb)
         throw new Error("Invalid input : score must be a number");
 
-    if (nb < 0 || nb > 10)
+    if (nb <= 0 || nb > 10)
         throw new Error("Invalid input : score must be within 0 and 10");
 
     return nb;
