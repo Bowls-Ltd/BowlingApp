@@ -1,11 +1,23 @@
 import {Player} from "./Player"
 class Game {
     private Players : Array<Player>;
+    private nbPins: number;
     private currentPlayerIdx : number;
 
 
-    public constructor(size : number) {
-        this.Players = new Array(size);
+    public constructor(nbPlayers : number, nbPins: number) {
+        if (Number.isNaN(nbPlayers))
+            throw new Error("Invalid parameter : nbPlayers must be a number");
+        if (nbPlayers <= 0)
+            throw new Error("Invalid parameter : nbPlayers must be positive");
+
+        if (Number.isNaN(nbPins))
+            throw new Error("Invalid parameter : nbPins must be a number");
+        if (nbPins <= 0)
+            throw new Error("Invalid parameter : nbPins must be positive");
+
+        this.Players = new Array(nbPlayers);
+        this.nbPins = nbPins;
 
         this.currentPlayerIdx = 0;
     }
