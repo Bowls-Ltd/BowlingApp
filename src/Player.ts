@@ -68,25 +68,27 @@ class Player {
         return this.turns.map((turn, i) => {
             let score = turn.pinsSum();
 
-            if (turn.isStrike()) {
-                nextIndexes = this.getNextShotIdx(i, 0); // can be null
-                if (nextIndexes !== null) { // next shot available
-                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
-                    score += getShot(nextTurnIdx, nextShotIdx);
+            if (i < 9) {
+                if (turn.isStrike()) {
+                    nextIndexes = this.getNextShotIdx(i, 0); // can be null
+                    if (nextIndexes !== null) { // next shot available
+                        [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
+                        score += getShot(nextTurnIdx, nextShotIdx);
 
-                    nextIndexes = this.getNextShotIdx(nextTurnIdx, nextShotIdx); // can be null
-                    if (nextIndexes !== null) { // next, next shot available
+                        nextIndexes = this.getNextShotIdx(nextTurnIdx, nextShotIdx); // can be null
+                        if (nextIndexes !== null) { // next, next shot available
+                            [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
+                            score += getShot(nextTurnIdx, nextShotIdx);
+                        }
+                    }
+                }
+
+                if (this.turns[i].isSpare()) {
+                    nextIndexes = this.getNextShotIdx(i, 1); // can be null
+                    if (nextIndexes !== null) { // next shot available
                         [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
                         score += getShot(nextTurnIdx, nextShotIdx);
                     }
-                }
-            }
-
-            if (this.turns[i].isSpare()) {
-                nextIndexes = this.getNextShotIdx(i, 1); // can be null
-                if (nextIndexes !== null) { // next shot available
-                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
-                    score += getShot(nextTurnIdx, nextShotIdx);
                 }
             }
 
