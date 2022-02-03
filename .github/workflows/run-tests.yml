@@ -1,0 +1,17 @@
+name: Run tests
+
+on: [ push, pull_request ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install the dependencies
+        run: ./docker-npm install
+      - name: Run the tests
+        run: ./docker-npm run test
