@@ -16,7 +16,10 @@ class Game {
         if (nbPins <= 0)
             throw new Error("Invalid parameter : nbPins must be positive");
 
-        this.Players = new Array(nbPlayers);
+        this.Players = new Array<Player>();
+        for (let index = 0; index < nbPlayers; index++) {
+            this.Players.push(new Player("Joueur " + new String(index + 1)))
+        }
         this.nbPins = nbPins;
 
         this.currentPlayerIdx = 0;

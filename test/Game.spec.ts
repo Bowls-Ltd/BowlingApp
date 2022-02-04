@@ -1,6 +1,5 @@
 import { Game } from "../src/Game";
 
-
 describe("Test Game class", () => {
     describe("Game constructor", () => {
         test("Game(NaN, 5)", () => {
@@ -20,6 +19,49 @@ describe("Test Game class", () => {
         });
         test("Game(-1, -1)", () => {
             expect(() => { new Game(-1, -1); }).toThrow("Invalid parameter : nbPlayers must be positive");
+        });
+    });
+
+    describe("Game constructor", () => {
+        test("3 players", () => {
+            const game = new Game(3, 10)
+            const players = game["Players"]
+            expect(players[0].getName()).toBe("Joueur 1")
+            expect(players[1].getName()).toBe("Joueur 2")
+            expect(players[2].getName()).toBe("Joueur 3")
+        });
+
+        test("Start playing", () => {
+            const game = new Game(3, 10)
+            game.startPlaying()
+            const players = game["Players"]
+            expect(players[0].isPlaying()).toBe(true)
+            expect(players[1].isPlaying()).toBe(false)
+            expect(players[2].isPlaying()).toBe(false)
+        });
+
+        test("Make player play", () => {
+            const game = new Game(3, 10)
+            game.startPlaying()
+            const players = game["Players"]
+            players[0].makeTry(5)
+            players[0].makeTry(3)
+            game.nextPlayer()
+            expect(players[0].isPlaying()).toBe(false)
+            expect(players[1].isPlaying()).toBe(true)
+            expect(players[2].isPlaying()).toBe(false)
+            players[1].makeTry(5)
+            players[1].makeTry(3)
+            game.nextPlayer()
+            expect(players[0].isPlaying()).toBe(false)
+            expect(players[1].isPlaying()).toBe(false)
+            expect(players[2].isPlaying()).toBe(true)
+            players[2].makeTry(5)
+            players[2].makeTry(3)
+            game.nextPlayer()
+            expect(players[0].isPlaying()).toBe(true)
+            expect(players[1].isPlaying()).toBe(false)
+            expect(players[2].isPlaying()).toBe(false)
         });
     });
 });
