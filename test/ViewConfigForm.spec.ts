@@ -18,6 +18,7 @@ import {
   // adds special assertions like toHaveTextContent
   import '@testing-library/jest-dom'
 
+import {Game} from "../src/Game"
 import {initGame} from "../src/Init"
 import {ViewConfigForm} from "../src/ViewConfigForm"
 
@@ -28,7 +29,7 @@ describe('ViewConfigForm', () => {
     let view, divForm, nplayersTitle, nplayersInput, npinsTitle, npinsInput, button, error
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString()
-        view = new ViewConfigForm()
+        view = new ViewConfigForm(new Game(2, 10))
         view.attachGameCreationCallback(initGame)
 
         divForm = (document.querySelector('#config-form'))
