@@ -39,22 +39,6 @@ class Player {
         this.currentTurn = new PlayerTurn(this.turns.length === 9);
     }
 
-
-    public playTurn(): void {
-        if (this.turns.length === 10) {
-            throw new Error("cannot play more than 10 turns");
-        }
-
-        let turn = new PlayerTurn(this.turns.length === 9);
-        let randInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
-
-        while (!turn.isOver()) {
-            turn.addPins(randInt(1, turn['remainingPins'])); // TODO: add getter for PlayerTurn.remainingPins ?
-        }
-
-        this.turns.push(turn);
-    }
-
     public getTurns(): Array<PlayerTurn> {
         return this.turns;
     }
