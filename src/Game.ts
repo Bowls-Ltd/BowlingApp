@@ -29,6 +29,17 @@ class Game {
         this.Players[0].play();
     }
 
+    public getPlayers(): Array<Player> {
+        return this.Players
+    }
+
+    public getCurrentPlayer(): Player {
+        return this.Players[this.currentPlayerIdx]
+    }
+
+    public getWinner(): Player {
+        return new Player("Jean-Michel")
+    }
 
     public nextPlayer() {
         this.currentPlayerIdx = this.currentPlayerIdx + 1;

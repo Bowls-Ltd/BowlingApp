@@ -1,21 +1,19 @@
 class RollInputView {
-    private body:       HTMLElement
-    private rollView:   HTMLElement
-    private pinInput:   HTMLInputElement
-    private pinLabel:   HTMLLabelElement
-    private pinSubmit:  HTMLElement
-    private pinError:   HTMLElement
+    private mainContainer: HTMLElement
+    private rollView:      HTMLElement
+    private pinInput:      HTMLInputElement
+    private pinLabel:      HTMLLabelElement
+    private pinSubmit:     HTMLElement
+    private pinError:      HTMLElement
 
-    constructor() {
-        this.body = document.body
-
+    constructor(mainContainer: HTMLElement) {
         this.rollView = document.createElement('div');
         this.rollView.id = "roll-view";
 
         this.pinLabel = document.createElement('label');
         this.pinLabel.id = "pin-label";
         this.pinLabel.setAttribute('for', 'pin-input');
-        this.pinLabel.innerHTML = "Pin count:";
+        this.pinLabel.innerHTML = "Nombre de quilles ";
 
         this.pinInput = document.createElement('input');
         this.pinInput.id = "pin-input";
@@ -37,7 +35,7 @@ class RollInputView {
         this.rollView.appendChild(this.pinSubmit);
         this.rollView.appendChild(this.pinError);
 
-        this.body.appendChild(this.rollView);
+        mainContainer.appendChild(this.rollView);
     }
 
     public destroy() {
