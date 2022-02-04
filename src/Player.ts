@@ -11,8 +11,12 @@ class Player {
         this.currentTurn = null;
     }
 
+    public getName() : string {
+        return this.name;
+    }
+
     public makeTry(nb : number) {
-        if (this.turns.length == 10) {
+        if (this.turns.length === 10) {
             throw new Error("cannot play more than 10 turns");
         }
         if (this.currentTurn === null) {
@@ -32,16 +36,16 @@ class Player {
     }
 
     public play() {
-        this.currentTurn = new PlayerTurn(this.turns.length == 9);
+        this.currentTurn = new PlayerTurn(this.turns.length === 9);
     }
 
 
     public playTurn(): void {
-        if (this.turns.length == 10) {
+        if (this.turns.length === 10) {
             throw new Error("cannot play more than 10 turns");
         }
 
-        let turn = new PlayerTurn(this.turns.length == 9);
+        let turn = new PlayerTurn(this.turns.length === 9);
         let randInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min);
 
         while (!turn.isOver()) {
@@ -64,25 +68,27 @@ class Player {
         return this.turns.map((turn, i) => {
             let score = turn.pinsSum();
 
-            if (turn.isStrike()) {
-                nextIndexes = this.getNextShotIdx(i, 0); // can be null
-                if (nextIndexes !== null) { // next shot available
-                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
-                    score += getShot(nextTurnIdx, nextShotIdx);
+            if (i < 9) {
+                if (turn.isStrike()) {
+                    nextIndexes = this.getNextShotIdx(i, 0); // can be null
+                    if (nextIndexes !== null) { // next shot available
+                        [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
+                        score += getShot(nextTurnIdx, nextShotIdx);
 
-                    nextIndexes = this.getNextShotIdx(nextTurnIdx, nextShotIdx); // can be null
-                    if (nextIndexes !== null) { // next, next shot available
+                        nextIndexes = this.getNextShotIdx(nextTurnIdx, nextShotIdx); // can be null
+                        if (nextIndexes !== null) { // next, next shot available
+                            [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
+                            score += getShot(nextTurnIdx, nextShotIdx);
+                        }
+                    }
+                }
+
+                if (this.turns[i].isSpare()) {
+                    nextIndexes = this.getNextShotIdx(i, 1); // can be null
+                    if (nextIndexes !== null) { // next shot available
                         [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
                         score += getShot(nextTurnIdx, nextShotIdx);
                     }
-                }
-            }
-
-            if (this.turns[i].isSpare()) {
-                nextIndexes = this.getNextShotIdx(i, 1); // can be null
-                if (nextIndexes !== null) { // next shot available
-                    [nextTurnIdx, nextShotIdx] = nextIndexes; // destructuring only if not null
-                    score += getShot(nextTurnIdx, nextShotIdx);
                 }
             }
 
