@@ -18,14 +18,20 @@ describe("Test Player class", () => {
         test("Adds a turn to the Player's turn", () => {
             let player = new Player("Toto");
             expect(player.getTurns().length).toStrictEqual(0);
-            player.playTurn();
+            player.play();
+            player.makeTry(4);
+            player.makeTry(3);
             expect(player.getTurns().length).toStrictEqual(1);
         });
         test("Player tries to play 11 turns", () => {
             let player = new Player("Toto");
-            for (let i = 0; i < 10; i++)
-                player.playTurn();
-            expect(() => player.playTurn()).toThrow("cannot play more than 10 turns");
+            for (let i = 0; i < 10; i++) {
+                player.play();
+                player.makeTry(4);
+                player.makeTry(3);
+            }
+            player.play();
+            expect(() => player.makeTry(5)).toThrow("cannot play more than 10 turns");
         });
     });
     describe("Player.computeAccumulatedScores() function", () => {
