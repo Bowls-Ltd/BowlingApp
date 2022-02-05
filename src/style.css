@@ -33,6 +33,12 @@ body {
     font-size: 25px;
 }
 
+/* GAME VIEW */
+
+.game-view-div {
+    background: rgba(255,255,255,0.7);
+}
+
 /* PLAYER VIEW */
 
 .player-view {

@@ -22,7 +22,7 @@ function initGame(view: ConfigFormView, nbPlayers: number, nbPins: number) {
     }
 
     game.startPlaying()
-    const gameView = new GameView(game)
+    const gameView = new GameView(mainContainer, game)
     gameView.displayWinner(game)
 }
 
