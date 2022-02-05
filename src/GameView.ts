@@ -17,6 +17,7 @@ class GameView {
     constructor(rootElement: HTMLElement, game: Game) {
 
         this.gameDiv = document.createElement('div')
+        this.gameDiv.classList.add("pretty-container");
         this.gameDiv.classList.add("game-view-div");
         this.gameDiv.id = 'game-div'
 

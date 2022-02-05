@@ -1,6 +1,13 @@
+:root {
+    --size1: 1rem;
+    --size2: 2rem;
+    --size3: 3rem;
+}
+
 body {
     margin: 0;
-    padding: 0;
+    padding: var(--size1);
+    box-sizing: border-box;
     background:  url("./images/background.png");
     background-repeat: no-repeat;
     background-position: left;
@@ -10,12 +17,18 @@ body {
 
 /* COMMON */
 
+
 .main-container {
-    width: 600px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media (min-width: 600px) { 
+    .main-container {
+        max-width: 600px;
+    }
 }
 
 .centered-div {
@@ -23,14 +36,19 @@ body {
     margin-right: auto;
 }
 
+.pretty-container {
+    background: rgba(255,255,255,0.7);
+    padding: var(--size2);
+    border-radius: var(--size2);
+}
+
 /* CONFIG FORM VIEW */
 
 .config-form-view-div {
-    background: rgba(255,255,255,0.7);
 }
 
 .config-form-view-title {
-    font-size: 25px;
+    font-size: var(--size2);
 }
 
 /* GAME VIEW */
@@ -47,7 +65,7 @@ body {
     justify-content: flex-start;
 }
 .player-view-info {
-    font-size: 20px;
+    font-size: +var(--size1);
 }
 .player-view-history {
     display: flexbox;

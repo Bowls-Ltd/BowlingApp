@@ -11,6 +11,7 @@ class ConfigFormView {
     constructor(rootElement : HTMLElement) {
 
         this.configDiv = document.createElement('div')
+        this.configDiv.classList.add("pretty-container");
         this.configDiv.classList.add("config-form-view-div");
         this.configDiv.id = "config-form"
 
