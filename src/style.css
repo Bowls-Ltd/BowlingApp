@@ -48,13 +48,16 @@ body {
     border-radius: var(--size2);
 }
 
+.game-title {
+    font-size: var(--size3);
+}
+
 /* CONFIG FORM VIEW */
 
 .config-form-view-div {
 }
 
 .config-form-view-title {
-    font-size: var(--size2);
 }
 
 /* GAME VIEW */
@@ -71,7 +74,7 @@ body {
     justify-content: flex-start;
 }
 .player-view-info {
-    font-size: +var(--size1);
+    font-size: var(--size1);
 }
 .player-view-history {
     display: flexbox;

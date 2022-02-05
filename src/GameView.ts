@@ -1,5 +1,5 @@
 import {Game} from './Game'
-import {Player} from './Player'
+import {title} from './Title'
 import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
 
@@ -21,9 +21,10 @@ class GameView {
         this.gameDiv.classList.add("game-view-div");
         this.gameDiv.id = 'game-div'
 
-        this.title = document.createElement('h1')
+        this.title = document.createElement('div')
         this.title.id = 'game-title'
-        this.title.innerHTML = 'TenPins (or less...)'
+        this.title.classList.add('game-title')
+        this.title.innerHTML = title
 
         this.inputDiv = document.createElement('div')
         this.inputDiv.id = 'input-div'
