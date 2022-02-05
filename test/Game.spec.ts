@@ -36,7 +36,7 @@ describe("Test Game class", () => {
         });
     });
 
-    describe("Game constructor", () => {
+    describe("Game behavior", () => {
         test("3 players", () => {
             const game = new Game(3, 10)
             const players = game["players"]
@@ -77,5 +77,24 @@ describe("Test Game class", () => {
             expect(players[1].isPlaying()).toBe(false)
             expect(players[2].isPlaying()).toBe(false)
         });
+
+        test("Game ending" , () => {
+            const game = new Game(3, 10)
+            game.startPlaying()
+            const players = game["players"]
+            for(let turnInd = 0; turnInd < 10; turnInd = turnInd + 1)
+            {
+                for(let playerInd = 0; playerInd < 3; playerInd = playerInd + 1)
+                {
+                    players[playerInd].makeTry(1 + playerInd * 2)
+                    players[playerInd].makeTry(3)
+                    game.nextPlayer()
+                }
+            }
+            expect(game.hasEnded()).toBe(true);
+            expect(game.getWinner().getName()).toBe("Joueur 3");
+       }); 
+
     });
+
 });
