@@ -4,7 +4,8 @@ import {GameView} from "./GameView"
 import {Player} from "./Player"
 
 function init() {
-    const configFormView = new ConfigFormView()
+    const mainContainer = document.getElementById("main-container")
+    const configFormView = new ConfigFormView(mainContainer)
     configFormView.attachGameCreationCallback(initGame)
 }
 
@@ -20,7 +21,8 @@ function initGame(configFormView: ConfigFormView, nbPlayers: number, nbPins: num
     }
 
     game.startPlaying()
-    const gameView = new GameView(game)
+    const mainContainer = document.getElementById("main-container")
+    const gameView = new GameView(mainContainer, game)
     gameView.displayWinner(game)
 }
 

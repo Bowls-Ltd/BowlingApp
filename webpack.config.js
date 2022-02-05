@@ -24,6 +24,10 @@ module.exports = {
         {
           from: "./src/style.css",
           to: "style.css"
+        },
+        {
+          from: "./src/images",
+          to: "images"
         }
       ],
     }),

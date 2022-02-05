@@ -24,12 +24,12 @@ import {initGame} from "../src/Init"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
-
 describe('ConfigFormView', () => {
     let view, divForm, nplayersTitle, nplayersInput, npinsTitle, npinsInput, button, error
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString()
-        view = new ConfigFormView(new Game(2, 10))
+        const mainContainer = document.getElementById('main-container')
+        view = new ConfigFormView(mainContainer)
         view.attachGameCreationCallback(initGame)
 
         divForm = (document.querySelector('#config-form'))
