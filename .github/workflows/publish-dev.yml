@@ -1,4 +1,4 @@
-name: Publish tagged version
+name: Publish dev version
 
 on: [ push, pull_request ]
 
@@ -33,7 +33,7 @@ jobs:
           # ssh-tenpins.alwaysdata.net:22 SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2
           |1|BY/zySEJHSL3sMqAXbYQN7OeOls=|DLGmjW8bWiean/wCkgkIrEgkWgU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOa3mkOQJewrYicU/FEzqu2l1IYehH8DqNFiNRzLf8Wp
           EOF
-          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/tenpins/dev/
+          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/dev/
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           RSYNC_RSH: "ssh -o UserKnownHostsFile=/tmp/known_hosts"
