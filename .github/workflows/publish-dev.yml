@@ -1,0 +1,38 @@
+name: Publish dev version
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Gather facts
+        id: facts
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install the dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: |
+          eval $(ssh-agent)
+          ssh-add - <<<"$SSH_KEY"
+          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/dev/
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          RSYNC_RSH: "ssh -o StrictHostKeyChecking=no"
