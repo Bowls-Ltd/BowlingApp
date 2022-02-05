@@ -37,6 +37,14 @@ class Game {
         return this.players[this.currentPlayerIdx];
     }
 
+    public hasEnded() : boolean {
+        for(let P of this.players) {
+            if(!P.hasEnded())
+                return false;
+        }
+        return true;
+    }
+
     public getWinner(): Player {
         return new Player("Jean-Michel", this.nbPins);
     }
