@@ -1,29 +1,42 @@
+import {NumberSelector} from "./NumberSelector"
+
 class RollInputView {
-    private mainContainer: HTMLElement
     private rollView:      HTMLElement
-    private pinInput:      HTMLInputElement
-    private pinLabel:      HTMLLabelElement
-    private pinSubmit:     HTMLElement
+    private pinSelector: NumberSelector
+    private validateText: HTMLElement
+    private buttonValidateDiv: HTMLElement
+    private buttonValidateUp: HTMLImageElement
+    private buttonValidateDown: HTMLImageElement
     private pinError:      HTMLElement
 
-    constructor(mainContainer: HTMLElement, nbPins: number) {
+    constructor(rootElement: HTMLElement, nbPins: number) {
         this.rollView = document.createElement('div');
         this.rollView.id = "roll-view";
 
-        this.pinLabel = document.createElement('label');
-        this.pinLabel.id = "pin-label";
-        this.pinLabel.setAttribute('for', 'pin-input');
-        this.pinLabel.innerHTML = "Nombre de quilles ";
+        this.pinSelector = new NumberSelector(this.rollView, 'Nombre de quilles', 0, 0, nbPins)
+        
+        this.buttonValidateDiv = document.createElement('div')
+        this.buttonValidateDiv.id = 'validate-div'
+        this.buttonValidateDiv.classList.add('rollinput-view-div')
+        this.buttonValidateDiv.classList.add('centered-div')
 
-        this.pinInput = document.createElement('input');
-        this.pinInput.id = "pin-input";
-        this.pinInput.type = 'number';
-        this.pinInput.min = '0';
-        this.pinInput.max = nbPins.toString();
+        this.validateText = document.createElement('div')
+        this.validateText.classList.add('rollinput-view-text')
+        this.validateText.innerHTML = 'Valider'
 
-        this.pinSubmit = document.createElement('button');
-        this.pinSubmit.id = "pin-submit";
-        this.pinSubmit.innerHTML = "Envoyer";
+        this.buttonValidateUp = document.createElement('img')
+        this.buttonValidateUp.classList.add('rollinput-view-img')
+        this.buttonValidateUp.classList.add('button-up')
+        this.buttonValidateUp.src = './images/button_validate_up.png'
+
+        this.buttonValidateDown = document.createElement('img')
+        this.buttonValidateDown.classList.add('rollinput-view-img')
+        this.buttonValidateDown.classList.add('button-down')
+        this.buttonValidateDown.src = './images/button_validate_down.png'
+
+        this.buttonValidateDiv.appendChild(this.validateText)
+        this.buttonValidateDiv.appendChild(this.buttonValidateUp)
+        this.buttonValidateDiv.appendChild(this.buttonValidateDown)
 
         this.pinError = document.createElement('p')
         this.pinError.id = "pin-error"
@@ -31,17 +44,15 @@ class RollInputView {
         this.pinError.style.color = "white"
         this.pinError.style.visibility = "hidden"
 
-        this.rollView.appendChild(this.pinLabel);
-        this.rollView.appendChild(this.pinInput);
-        this.rollView.appendChild(this.pinSubmit);
+        this.rollView.appendChild(this.buttonValidateDiv);
         this.rollView.appendChild(this.pinError);
 
-        mainContainer.appendChild(this.rollView);
+        rootElement.appendChild(this.rollView);
     }
 
     public attachRollInputCallback(callback: RollInputCallback) : void {
-        this.pinSubmit.addEventListener("click", () => {
-            callback(parseInt(this.pinInput.value));
+        this.buttonValidateDiv.addEventListener("click", () => {
+            callback(this.pinSelector.getSelectedValue());
         })
     }
 
