@@ -1,21 +1,21 @@
+import {ConfigFormView} from "./ConfigFormView"
 import {Game} from "./Game"
 import {GameView} from "./GameView"
 import {Player} from "./Player"
-import {ViewConfigForm} from "./ViewConfigForm"
 
 function init() {
-    const viewConfigForm = new ViewConfigForm()
-    viewConfigForm.attachGameCreationCallback(initGame)
+    const configFormView = new ConfigFormView()
+    configFormView.attachGameCreationCallback(initGame)
 }
 
-function initGame(view: ViewConfigForm, nbPlayers: number, nbPins: number) {
+function initGame(configFormView: ConfigFormView, nbPlayers: number, nbPins: number) {
     let game
     try {
         game = new Game(nbPlayers, nbPins)
-        view.destroy()
+        configFormView.destroy()
     }
     catch (e: any) {
-        view.printError(e)
+        configFormView.printError(e)
         return
     }
 

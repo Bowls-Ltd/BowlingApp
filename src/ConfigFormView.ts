@@ -1,4 +1,4 @@
-class ViewConfigForm {
+class ConfigFormView {
     private body: HTMLElement
     private configDiv: HTMLElement
     private nbPlayersTitle: HTMLElement
@@ -66,6 +66,6 @@ class ViewConfigForm {
     }
 }
 
-type GameCreationCallback = (view: ViewConfigForm, nbPlayers: number, nbPins: number) => void
+type GameCreationCallback = (view: ConfigFormView, nbPlayers: number, nbPins: number) => void
 
-export {ViewConfigForm}
+export {ConfigFormView}
