@@ -9,6 +9,8 @@ function turnsFromArray(turns      : Array<Array<number>>,
 {
     if (isLastTurn === null) {
         isLastTurn = turns.map(() => false);
+        if (turns.length === 10)
+            isLastTurn[9] = true;
     }
     return turns.map((turn: Array<number>, index: number) => {
         let playerTurn = new PlayerTurn(isLastTurn[index], nbPins);
@@ -43,61 +45,73 @@ describe("Test Player class", () => {
             let player = new Player("Toto", 10);
             // player['turns'] = {};
             expect(player.computeAccumulatedScores()).toStrictEqual([]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("One turn with a spare (not enough shots for the spare)", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[8, 2]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([10]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("One turn with a strike (not enough shots for the strike)", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([10]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("Two turns with two strikes (not enough shots for the strikes)", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [10]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 30]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("Several turns with a spare", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[5, 1], [8, 2], [4, 5]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([6, 20, 29]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("Several turns with a strike", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [7, 2], [4, 5]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([19, 28, 37]);
+            expect(player.hasEnded()).toBe(false);
         });
         test("10th turn: spare then strike", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [9, 1, 10]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 167, 187]);
+            expect(player.hasEnded()).toBe(true);
         });
         test("10th turn: strike then nothing", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 2, 6]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 186]);
+            expect(player.hasEnded()).toBe(true);
         });
         test("10th turn: strike then spare", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 7, 3]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 188]);
+            expect(player.hasEnded()).toBe(true);
         });
         test("10th turn: strike then strike then nothing", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 10, 1]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 189]);
+            expect(player.hasEnded()).toBe(true);
         });
         test("10th turn: strike then strike then strike", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [8, 2], [10, 10, 10]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 168, 198]);
+            expect(player.hasEnded()).toBe(true);
         });
         test("9th turn: strike = 2 next rolls (and not entire 10th frame)", () => {
             let player = new Player("Toto", 10);
             player['turns'] = turnsFromArray([[10], [9, 1], [5, 5], [7,2], [10], [10], [10], [9, 0], [10], [10, 10, 10]]);
             expect(player.computeAccumulatedScores()).toStrictEqual([20, 35, 52, 61, 91, 120, 139, 148, 178, 208]);
+            expect(player.hasEnded()).toBe(true);
         });
     });
     describe("Player.getNextShotIdx() function", () => {
