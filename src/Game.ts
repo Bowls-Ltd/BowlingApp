@@ -1,8 +1,11 @@
 import {Player} from "./Player"
+
+
 class Game {
     private players : Array<Player>;
     private nbPins: number;
     private currentPlayerIdx : number;
+    private onGameEndedCallback : Array<GameEndedCallback>;
 
 
     public constructor(nbPlayers : number, nbPins: number) {
@@ -23,6 +26,7 @@ class Game {
         this.nbPins = nbPins;
 
         this.currentPlayerIdx = 0;
+        this.onGameEndedCallback = new Array<GameEndedCallback>();
     }
 
     public startPlaying() {
@@ -59,12 +63,28 @@ class Game {
     }
 
     public nextPlayer() {
-        this.currentPlayerIdx = this.currentPlayerIdx + 1;
-        if (this.currentPlayerIdx >= this.players.length)
-            this.currentPlayerIdx = 0;
-        this.players[this.currentPlayerIdx].play();
+        if (this.hasEnded())
+            this.notityGameEnded();
+        else
+        {
+            this.currentPlayerIdx = this.currentPlayerIdx + 1;
+            if (this.currentPlayerIdx >= this.players.length)
+                this.currentPlayerIdx = 0;
+            this.players[this.currentPlayerIdx].play();
+        }
+    }
+
+    public attachGameEndedCallback(callback : GameEndedCallback) {
+        this.onGameEndedCallback.push(callback);
+    }
+
+    private notityGameEnded() {
+        let winner : Player = this.getWinner();
+        for(let c of this.onGameEndedCallback)
+            c(this.getWinner());
     }
 }
 
+type GameEndedCallback = (winner: Player) => void;
 
 export { Game }
