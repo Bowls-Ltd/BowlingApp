@@ -37,7 +37,7 @@ class PlayerView {
 
     public update(p: Player) {
         let str : string = "| ";
-        for (let s in p.computeAccumulatedScores()) {
+        for (let s of p.computeAccumulatedScores()) {
             str = str + s + " | ";
         }
         this.scoresContainer.textContent = str;
