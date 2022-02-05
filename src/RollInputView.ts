@@ -6,7 +6,7 @@ class RollInputView {
     private pinSubmit:     HTMLElement
     private pinError:      HTMLElement
 
-    constructor(mainContainer: HTMLElement) {
+    constructor(mainContainer: HTMLElement, nbPins: number) {
         this.rollView = document.createElement('div');
         this.rollView.id = "roll-view";
 
@@ -18,11 +18,12 @@ class RollInputView {
         this.pinInput = document.createElement('input');
         this.pinInput.id = "pin-input";
         this.pinInput.type = 'number';
-        this.pinInput.min = '1';
+        this.pinInput.min = '0';
+        this.pinInput.max = nbPins.toString();
 
         this.pinSubmit = document.createElement('button');
         this.pinSubmit.id = "pin-submit";
-        this.pinSubmit.innerHTML = "Submit";
+        this.pinSubmit.innerHTML = "Envoyer";
 
         this.pinError = document.createElement('p')
         this.pinError.id = "pin-error"
