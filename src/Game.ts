@@ -49,17 +49,20 @@ class Game {
         return true;
     }
 
-    public getWinner(): Player {
+    public getWinners(): Array<Player> {
         let maxScore : number = -1;
-        let winner : Player;
+        let winners : Array<Player> = new Array<Player>();
         for(let P of this.players) {
             let score : number = P.computeAccumulatedScores()[9];
-            if( score > maxScore) {
-                winner = P;
+            if( score === maxScore) {
+                winners.push(P);
+            }
+            else if (score > maxScore) {
+                winners = new Array<Player>(P);
                 maxScore = score;
             }
         }
-        return winner;
+        return winners;
     }
 
     public nextPlayer() {
@@ -79,12 +82,11 @@ class Game {
     }
 
     private notityGameEnded() {
-        let winner : Player = this.getWinner();
         for(let c of this.onGameEndedCallback)
-            c(this.getWinner());
+            c();
     }
 }
 
-type GameEndedCallback = (winner: Player) => void;
+type GameEndedCallback = () => void;
 
 export { Game }

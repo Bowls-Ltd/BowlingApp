@@ -19,11 +19,10 @@ function initGame(configFormView: ConfigFormView, nbPlayers: number, nbPins: num
         configFormView.printError(e)
         return
     }
-
+    game.attachGameEndedCallback(function() { gameView.displayWinner(game.getWinners()) })
     game.startPlaying()
     const mainContainer = document.getElementById("main-container")
     const gameView = new GameView(mainContainer, game)
-    gameView.displayWinner(game)
 }
 
 export {init, initGame}
