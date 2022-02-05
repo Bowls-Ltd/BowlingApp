@@ -1,7 +1,6 @@
 import {ConfigFormView} from "./ConfigFormView"
 import {Game} from "./Game"
 import {GameView} from "./GameView"
-import {Player} from "./Player"
 
 function init() {
     const mainContainer = document.getElementById("main-container")
