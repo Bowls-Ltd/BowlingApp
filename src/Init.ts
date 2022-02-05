@@ -1,14 +1,16 @@
 import {Game} from "./Game"
 import {GameView} from "./GameView"
 import {Player} from "./Player"
-import {ViewConfigForm} from "./ViewConfigForm"
+import {ConfigFormView} from "./ConfigFormView"
+
+const mainContainer = document.getElementById("main-container")
 
 function init() {
-    const viewConfigForm = new ViewConfigForm()
-    viewConfigForm.attachGameCreationCallback(initGame)
+    const configFormView = new ConfigFormView(mainContainer)
+    configFormView.attachGameCreationCallback(initGame)
 }
 
-function initGame(view: ViewConfigForm, nbPlayers: number, nbPins: number) {
+function initGame(view: ConfigFormView, nbPlayers: number, nbPins: number) {
     let game
     try {
         game = new Game(nbPlayers, nbPins)

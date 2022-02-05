@@ -20,16 +20,16 @@ import {
 
 import {Game} from "../src/Game"
 import {initGame} from "../src/Init"
-import {ViewConfigForm} from "../src/ViewConfigForm"
+import {ConfigFormView} from "../src/ConfigFormView"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
 
-describe('ViewConfigForm', () => {
+describe('ConfigFormView', () => {
     let view, divForm, nplayersTitle, nplayersInput, npinsTitle, npinsInput, button, error
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString()
-        view = new ViewConfigForm(new Game(2, 10))
+        view = new ConfigFormView(new Game(2, 10))
         view.attachGameCreationCallback(initGame)
 
         divForm = (document.querySelector('#config-form'))

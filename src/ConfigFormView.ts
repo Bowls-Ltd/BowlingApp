@@ -1,5 +1,4 @@
-class ViewConfigForm {
-    private body: HTMLElement
+class ConfigFormView {
     private configDiv: HTMLElement
     private nbPlayersTitle: HTMLElement
     private inputNbPlayers: HTMLInputElement
@@ -9,32 +8,34 @@ class ViewConfigForm {
     private p: HTMLElement
     private errorBox: HTMLElement
 
-    constructor() {
-        this.body = document.body
+    constructor(rootElement : HTMLElement) {
 
         this.configDiv = document.createElement('div')
+        this.configDiv.classList.add("config-form-view-div");
         this.configDiv.id = "config-form"
 
-        this.nbPlayersTitle = document.createElement('h3')
+        this.nbPlayersTitle = document.createElement('div')
+        this.nbPlayersTitle.classList.add("config-form-view-title");
         this.nbPlayersTitle.innerHTML = "Veuillez saisir le nombre de joueur :"
         this.nbPlayersTitle.id = "nb-players-title"
 
         this.inputNbPlayers = document.createElement('input')
         this.inputNbPlayers.id = "nb-players-input"
 
-        this.nbPinsTitle = document.createElement('h3')
+        this.nbPinsTitle = document.createElement('div')
+        this.nbPinsTitle.classList.add("config-form-view-title");
         this.nbPinsTitle.innerHTML = "Veuillez saisir le nombre de quilles :"
         this.nbPinsTitle.id = "nb-pins-title"
 
         this.inputNbPins = document.createElement('input')
         this.inputNbPins.id = "nb-pins-input"
 
-        this.p = document.createElement('p')
+        this.p = document.createElement('div')
         this.buttonValidate = document.createElement('button')
         this.buttonValidate.id = "validate-button"
         this.buttonValidate.innerHTML = "Valider"
 
-        this.errorBox = document.createElement('p')
+        this.errorBox = document.createElement('div')
         this.errorBox.id = "config-error-box"
         this.errorBox.style.background = "red"
         this.errorBox.style.color = "white"
@@ -47,7 +48,7 @@ class ViewConfigForm {
         this.configDiv.appendChild(this.inputNbPins)
         this.configDiv.appendChild(this.p)
         this.configDiv.appendChild(this.errorBox)
-        this.body.appendChild(this.configDiv)
+        rootElement.appendChild(this.configDiv)
     }
 
     public destroy() {
@@ -66,6 +67,6 @@ class ViewConfigForm {
     }
 }
 
-type GameCreationCallback = (view: ViewConfigForm, nbPlayers: number, nbPins: number) => void
+type GameCreationCallback = (view: ConfigFormView, nbPlayers: number, nbPins: number) => void
 
-export {ViewConfigForm}
+export {ConfigFormView}
