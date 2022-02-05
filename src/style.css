@@ -52,6 +52,22 @@ body {
     font-size: var(--size3);
 }
 
+.button-up {
+    display: inherit;
+}
+
+.button-down{
+    display: none;
+}
+
+.button-up:active {
+    display: none;
+}
+
+.button-up:active + .button-down {
+    display: inherit;
+}
+
 /* CONFIG FORM VIEW */
 
 .config-form-view-div {
@@ -59,6 +75,26 @@ body {
 
 .config-form-view-title {
 }
+
+.config-form-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.config-form-number {
+    margin-left: var(--size1);
+    margin-right: var(--size1);
+}
+
+.config-form-img-minus {
+    width: 50px;
+}
+
+.config-form-img-plus {
+    width: 50px;
+}
+
 
 /* GAME VIEW */
 
@@ -86,4 +122,9 @@ body {
 }
 .player-view-scores {
     width: 100%;
+}
+
+.configplayer-div {
+    display: flex;
+    flex-direction: row;
 }
