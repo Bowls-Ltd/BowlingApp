@@ -60,9 +60,13 @@ class GameView {
         }
     }
 
-    public displayWinner(game: Game) : void {
-        this.winner.innerHTML = game.getWinner().getName() + " a gagné la partie"
-        this.winner.style.visibility = "visible"
+    public displayWinner(game : Game) : void {
+        if(game.getWinner() !== null && game.getWinner() != undefined)
+        {
+            this.winner.innerHTML = game.getWinner().getName() + " a gagné la partie"
+            this.winner.style.visibility = "visible"
+        }
+
     }
 }
 
