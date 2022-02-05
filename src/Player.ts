@@ -13,6 +13,7 @@ class Player {
         this.currentTurn = null;
     }
 
+
     public getName() : string {
         return this.name;
     }
@@ -43,6 +44,10 @@ class Player {
 
     public getTurns(): Array<PlayerTurn> {
         return this.turns;
+    }
+
+    public hasEnded() : boolean {
+        return (this.turns.length === 10 && this.turns[9].isOver())
     }
 
     public computeAccumulatedScores(): Array<number> {
