@@ -20,3 +20,6 @@ jobs:
 
       - name: Run the tests
         run: npm run test
+
+      - name: Build # even if the tests pass, the build may fail
+        run: npm run build
