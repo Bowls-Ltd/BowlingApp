@@ -33,6 +33,10 @@ class Game {
         this.players[0].play();
     }
 
+    public getPins(): number {
+        return this.nbPins;
+    }
+
     public getPlayers(): Array<Player> {
         return this.players;
     }
