@@ -33,6 +33,10 @@ class Game {
         this.players[0].play();
     }
 
+    public getPins(): number {
+        return this.nbPins;
+    }
+
     public getPlayers(): Array<Player> {
         return this.players;
     }
@@ -85,6 +89,7 @@ class Game {
         for(let c of this.onGameEndedCallback)
             c();
     }
+
 }
 
 type GameEndedCallback = () => void;

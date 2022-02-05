@@ -1,63 +1,62 @@
+import {NumberSelector} from "./NumberSelector"
 import {title} from "./Title"
 
 class ConfigFormView {
     private title: HTMLElement
     private configDiv: HTMLElement
-    private nbPlayersTitle: HTMLElement
-    private inputNbPlayers: HTMLInputElement
-    private nbPinsTitle: HTMLElement
-    private inputNbPins: HTMLInputElement
+
+    private playerNumberSelector: NumberSelector
+    private pinNumberSelector: NumberSelector
+
+    private buttonValidateDiv: HTMLElement
+    private buttonValidateUp: HTMLImageElement
+    private buttonValidateDown: HTMLImageElement
+
     private buttonValidate: HTMLElement
     private p: HTMLElement
     private errorBox: HTMLElement
 
     constructor(rootElement : HTMLElement) {
-
-        this.configDiv = document.createElement('div')
-        this.configDiv.classList.add("pretty-container");
-        this.configDiv.classList.add("config-form-view-div");
-        this.configDiv.id = "config-form"
-
         this.title = document.createElement('div')
-        this.title.id = 'config-game-title'
+        this.title.id = 'game-title'
         this.title.classList.add('game-title')
         this.title.innerHTML = title
 
-        this.nbPlayersTitle = document.createElement('div')
-        this.nbPlayersTitle.classList.add("config-form-view-title");
-        this.nbPlayersTitle.innerHTML = "Veuillez saisir le nombre de joueur :"
-        this.nbPlayersTitle.id = "nb-players-title"
+        this.configDiv = document.createElement('div')
+        this.configDiv.classList.add("pretty-container")
+        this.configDiv.classList.add("config-form-view-div")
+        this.configDiv.id = "config-form"
 
-        this.inputNbPlayers = document.createElement('input')
-        this.inputNbPlayers.id = "nb-players-input"
+        this.buttonValidateDiv = document.createElement('div')
+        this.buttonValidateDiv.id = 'validate-div'
+        this.buttonValidateDiv.classList.add('config-form-view-div')
+        this.buttonValidateDiv.classList.add('centered-div')
 
-        this.nbPinsTitle = document.createElement('div')
-        this.nbPinsTitle.classList.add("config-form-view-title");
-        this.nbPinsTitle.innerHTML = "Veuillez saisir le nombre de quilles :"
-        this.nbPinsTitle.id = "nb-pins-title"
+        this.buttonValidateUp = document.createElement('img')
+        this.buttonValidateUp.classList.add('config-form-img-validate')
+        this.buttonValidateUp.classList.add('button-up')
+        this.buttonValidateUp.src = './images/button_validate_up.png'
 
-        this.inputNbPins = document.createElement('input')
-        this.inputNbPins.id = "nb-pins-input"
+        this.buttonValidateDown = document.createElement('img')
+        this.buttonValidateDown.classList.add('config-form-img-validate')
+        this.buttonValidateDown.classList.add('button-down')
+        this.buttonValidateDown.src = './images/button_validate_down.png'
 
-        this.p = document.createElement('div')
-        this.buttonValidate = document.createElement('button')
-        this.buttonValidate.id = "validate-button"
-        this.buttonValidate.innerHTML = "Valider"
+        this.buttonValidateDiv.appendChild(this.buttonValidateUp)
+        this.buttonValidateDiv.appendChild(this.buttonValidateDown)
 
         this.errorBox = document.createElement('div')
-        this.errorBox.id = "config-error-box"
-        this.errorBox.style.background = "red"
-        this.errorBox.style.color = "white"
-        this.errorBox.style.visibility = "hidden"
+        this.errorBox.id = 'config-error-box'
+        this.errorBox.style.background = 'red'
+        this.errorBox.style.color = 'white'
+        this.errorBox.style.visibility = 'hidden'
 
-        this.p.appendChild(this.buttonValidate)
         this.configDiv.appendChild(this.title)
-        this.configDiv.appendChild(this.nbPlayersTitle)
-        this.configDiv.appendChild(this.inputNbPlayers)
-        this.configDiv.appendChild(this.nbPinsTitle)
-        this.configDiv.appendChild(this.inputNbPins)
-        this.configDiv.appendChild(this.p)
+        this.playerNumberSelector = new NumberSelector(this.configDiv, 'Nombre de joueurs', 2, 1)
+        this.pinNumberSelector = new NumberSelector(this.configDiv, 'Nombre de quilles', 10, 1, 10)
+        this.configDiv.appendChild(this.buttonValidateDiv)
         this.configDiv.appendChild(this.errorBox)
+
         rootElement.appendChild(this.configDiv)
     }
 
@@ -66,8 +65,9 @@ class ConfigFormView {
     }
 
     public attachGameCreationCallback(callback: GameCreationCallback) : void {
-        this.buttonValidate.addEventListener("click", () => {
-            callback(this, parseInt(this.inputNbPlayers.value), parseInt(this.inputNbPins.value))
+        this.buttonValidateDiv.addEventListener("click", () => {
+            callback(this, this.playerNumberSelector.getSelectedValue(),
+                     this.pinNumberSelector.getSelectedValue())
         })
     }
 
