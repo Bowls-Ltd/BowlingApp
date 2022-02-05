@@ -20,14 +20,16 @@ class ConfigFormView {
     private imgPinMinusUp: HTMLImageElement
     private imgPinMinusDown: HTMLImageElement
 
-    private buttonValidate: HTMLElement
-    private p: HTMLElement
+    private buttonValidateDiv: HTMLElement
+    private buttonValidateUp: HTMLImageElement
+    private buttonValidateDown: HTMLImageElement
+
     private errorBox: HTMLElement
 
     constructor(rootElement : HTMLElement) {
         this.configDiv = document.createElement('div')
-        this.configDiv.classList.add("pretty-container");
-        this.configDiv.classList.add("config-form-view-div");
+        this.configDiv.classList.add("pretty-container")
+        this.configDiv.classList.add("config-form-view-div")
         this.configDiv.id = "config-form"
 
         this.title = document.createElement('div')
@@ -36,8 +38,8 @@ class ConfigFormView {
         this.title.innerHTML = title
 
         this.nbPlayersTitle = document.createElement('div')
-        this.nbPlayersTitle.classList.add("config-form-view-title");
-        this.nbPlayersTitle.innerHTML = "Veuillez saisir le nombre de joueur :"
+        this.nbPlayersTitle.classList.add("config-form-view-title")
+        this.nbPlayersTitle.innerHTML = 'Nombre de joueurs'
         this.nbPlayersTitle.id = "nb-players-title"
 
         this.playerDiv = document.createElement('div')
@@ -45,13 +47,13 @@ class ConfigFormView {
         this.playerDiv.classList.add('config-form-div')
 
         this.imgPlayerMinusUp = document.createElement('img')
-        this.imgPlayerMinusUp.classList.add('config-form-img-minus');
-        this.imgPlayerMinusUp.classList.add('button-up');
+        this.imgPlayerMinusUp.classList.add('config-form-img-minus')
+        this.imgPlayerMinusUp.classList.add('button-up')
         this.imgPlayerMinusUp.src = './images/button_minus_up.png'
 
         this.imgPlayerMinusDown = document.createElement('img')
-        this.imgPlayerMinusDown.classList.add('config-form-img-minus');
-        this.imgPlayerMinusDown.classList.add('button-down');
+        this.imgPlayerMinusDown.classList.add('config-form-img-minus')
+        this.imgPlayerMinusDown.classList.add('button-down')
         this.imgPlayerMinusDown.src = './images/button_minus_down.png'
 
         this.inputNbPlayers = document.createElement('div')
@@ -60,13 +62,13 @@ class ConfigFormView {
         this.inputNbPlayers.innerHTML = '2'
 
         this.imgPlayerPlusUp = document.createElement('img')
-        this.imgPlayerPlusUp.classList.add('config-form-img-plus');
-        this.imgPlayerPlusUp.classList.add('button-up');
+        this.imgPlayerPlusUp.classList.add('config-form-img-plus')
+        this.imgPlayerPlusUp.classList.add('button-up')
         this.imgPlayerPlusUp.src = './images/button_plus_up.png'
 
         this.imgPlayerPlusDown = document.createElement('img')
-        this.imgPlayerPlusDown.classList.add('config-form-img-plus');
-        this.imgPlayerPlusDown.classList.add('button-down');
+        this.imgPlayerPlusDown.classList.add('config-form-img-plus')
+        this.imgPlayerPlusDown.classList.add('button-down')
         this.imgPlayerPlusDown.src = './images/button_plus_down.png'
 
         this.playerDiv.appendChild(this.imgPlayerMinusUp)
@@ -76,22 +78,22 @@ class ConfigFormView {
         this.playerDiv.appendChild(this.imgPlayerPlusDown)
 
         this.pinDiv = document.createElement('div')
-        this.pinDiv.classList.add('config-form-div');
+        this.pinDiv.classList.add('config-form-div')
         this.pinDiv.id = 'pin-div'
 
         this.nbPinsTitle = document.createElement('div')
-        this.nbPinsTitle.classList.add('config-form-view-title');
-        this.nbPinsTitle.innerHTML = 'Veuillez saisir le nombre de quilles :'
+        this.nbPinsTitle.classList.add('config-form-view-title')
+        this.nbPinsTitle.innerHTML = 'Nombre de quilles'
         this.nbPinsTitle.id = 'nb-pins-title'
 
         this.imgPinMinusUp = document.createElement('img')
-        this.imgPinMinusUp.classList.add('config-form-img-minus');
-        this.imgPinMinusUp.classList.add('button-up');
+        this.imgPinMinusUp.classList.add('config-form-img-minus')
+        this.imgPinMinusUp.classList.add('button-up')
         this.imgPinMinusUp.src = './images/button_minus_up.png'
 
         this.imgPinMinusDown = document.createElement('img')
-        this.imgPinMinusDown.classList.add('config-form-img-minus');
-        this.imgPinMinusDown.classList.add('button-down');
+        this.imgPinMinusDown.classList.add('config-form-img-minus')
+        this.imgPinMinusDown.classList.add('button-down')
         this.imgPinMinusDown.src = './images/button_minus_down.png'
 
         this.inputNbPins = document.createElement('div')
@@ -100,13 +102,13 @@ class ConfigFormView {
         this.inputNbPins.innerHTML = '10'
 
         this.imgPinPlusUp = document.createElement('img')
-        this.imgPinPlusUp.classList.add('config-form-img-plus');
-        this.imgPinPlusUp.classList.add('button-up');
+        this.imgPinPlusUp.classList.add('config-form-img-plus')
+        this.imgPinPlusUp.classList.add('button-up')
         this.imgPinPlusUp.src = './images/button_plus_up.png'
 
         this.imgPinPlusDown = document.createElement('img')
-        this.imgPinPlusDown.classList.add('config-form-img-plus');
-        this.imgPinPlusDown.classList.add('button-down');
+        this.imgPinPlusDown.classList.add('config-form-img-plus')
+        this.imgPinPlusDown.classList.add('button-down')
         this.imgPinPlusDown.src = './images/button_plus_down.png'
 
         this.pinDiv.appendChild(this.imgPinMinusUp)
@@ -115,10 +117,23 @@ class ConfigFormView {
         this.pinDiv.appendChild(this.imgPinPlusUp)
         this.pinDiv.appendChild(this.imgPinPlusDown)
 
-        this.p = document.createElement('div')
-        this.buttonValidate = document.createElement('button')
-        this.buttonValidate.id = "validate-button"
-        this.buttonValidate.innerHTML = "Valider"
+        this.buttonValidateDiv = document.createElement('div')
+        this.buttonValidateDiv.id = 'validate-div'
+        this.buttonValidateDiv.classList.add('config-form-div')
+        this.buttonValidateDiv.classList.add('centered-div')
+
+        this.buttonValidateUp = document.createElement('img')
+        this.buttonValidateUp.classList.add('config-form-img-validate')
+        this.buttonValidateUp.classList.add('button-up')
+        this.buttonValidateUp.src = './images/button_validate_up.png'
+
+        this.buttonValidateDown = document.createElement('img')
+        this.buttonValidateDown.classList.add('config-form-img-validate')
+        this.buttonValidateDown.classList.add('button-down')
+        this.buttonValidateDown.src = './images/button_validate_down.png'
+
+        this.buttonValidateDiv.appendChild(this.buttonValidateUp)
+        this.buttonValidateDiv.appendChild(this.buttonValidateDown)
 
         this.errorBox = document.createElement('div')
         this.errorBox.id = 'config-error-box'
@@ -126,13 +141,12 @@ class ConfigFormView {
         this.errorBox.style.color = 'white'
         this.errorBox.style.visibility = 'hidden'
 
-        this.p.appendChild(this.buttonValidate)
         this.configDiv.appendChild(this.title)
         this.configDiv.appendChild(this.nbPlayersTitle)
         this.configDiv.appendChild(this.playerDiv)
         this.configDiv.appendChild(this.nbPinsTitle)
         this.configDiv.appendChild(this.pinDiv)
-        this.configDiv.appendChild(this.p)
+        this.configDiv.appendChild(this.buttonValidateDiv)
         this.configDiv.appendChild(this.errorBox)
         rootElement.appendChild(this.configDiv)
     }
@@ -142,7 +156,7 @@ class ConfigFormView {
     }
 
     public attachGameCreationCallback(callback: GameCreationCallback) : void {
-        this.buttonValidate.addEventListener("click", () => {
+        this.buttonValidateDiv.addEventListener("click", () => {
             callback(this, parseInt(this.inputNbPlayers.innerHTML),
                      parseInt(this.inputNbPins.innerHTML))
         })

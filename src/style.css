@@ -49,7 +49,8 @@ body {
 }
 
 .game-title {
-    font-size: var(--size3);
+    font-size: var(--size2);
+    margin-bottom: var(--size2);
 }
 
 .button-up {
@@ -71,30 +72,39 @@ body {
 /* CONFIG FORM VIEW */
 
 .config-form-view-div {
+    text-align: center;
 }
 
 .config-form-view-title {
+    font-size: var(--size1);
 }
 
 .config-form-div {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    margin-top: var(--size1);
+    margin-bottom: var(--size1);
 }
 
 .config-form-number {
     margin-left: var(--size1);
     margin-right: var(--size1);
+    font-size: var(--size2);
+}
+
+.config-form-img-validate {
+    width: 100px;
 }
 
 .config-form-img-minus {
-    width: 50px;
+    width: 60px;
 }
 
 .config-form-img-plus {
-    width: 50px;
+    width: 60px;
 }
-
 
 /* GAME VIEW */
 

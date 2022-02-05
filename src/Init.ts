@@ -7,6 +7,7 @@ function init() {
     const mainContainer = document.getElementById("main-container")
     const configFormView = new ConfigFormView(mainContainer)
     configFormView.attachGameCreationCallback(initGame)
+    configFormView.printError("Coucou")
 }
 
 function initGame(configFormView: ConfigFormView, nbPlayers: number, nbPins: number) {
