@@ -35,16 +35,16 @@ class PlayerView {
         rootElement.appendChild(this.mainContainer);
     }
 
-    public update(turns : Array<PlayerTurn>, accumulatedScore : Array<number>) {
+    public update(p: Player) {
         let str : string = "| ";
-        for (let s of accumulatedScore) {
+        for (let s in p.computeAccumulatedScores()) {
             str = str + s + " | ";
         }
         this.scoresContainer.textContent = str;
 
         str = "| ";
 
-        for (let t of turns) {
+        for (let t of p.getTurns()) {
             let shots : Array<number> = t.getShots();
             if(t.isStrike()) {
                 str = str + "X ";

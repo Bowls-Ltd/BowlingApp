@@ -4,9 +4,11 @@ class Player {
     private turns: Array<PlayerTurn>;
     private name: string;
     private currentTurn : PlayerTurn;
+    private nbPins : number;
 
-    public constructor(name: string) {
+    public constructor(name: string, nbPins : number) {
         this.name = name;
+        this.nbPins = nbPins;
         this.turns = Array<PlayerTurn>();
         this.currentTurn = null;
     }
@@ -36,7 +38,7 @@ class Player {
     }
 
     public play() {
-        this.currentTurn = new PlayerTurn(this.turns.length === 9);
+        this.currentTurn = new PlayerTurn(this.turns.length === 9, this.nbPins);
     }
 
     public getTurns(): Array<PlayerTurn> {

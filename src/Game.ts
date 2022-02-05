@@ -1,6 +1,6 @@
 import {Player} from "./Player"
 class Game {
-    private Players : Array<Player>;
+    private players : Array<Player>;
     private nbPins: number;
     private currentPlayerIdx : number;
 
@@ -16,22 +16,36 @@ class Game {
         if (nbPins <= 0)
             throw new Error("Invalid parameter : nbPins must be positive");
 
-        this.Players = new Array(nbPlayers);
+        this.players = new Array<Player>();
+        for (let index = 0; index < nbPlayers; index++) {
+            this.players.push(new Player("Joueur " + new String(index + 1), nbPins))
+        }
         this.nbPins = nbPins;
 
         this.currentPlayerIdx = 0;
     }
 
     public startPlaying() {
-        this.Players[0].play();
+        this.players[0].play();
     }
 
+    public getPlayers(): Array<Player> {
+        return this.players;
+    }
+
+    public getCurrentPlayer(): Player {
+        return this.players[this.currentPlayerIdx];
+    }
+
+    public getWinner(): Player {
+        return new Player("Jean-Michel", this.nbPins);
+    }
 
     public nextPlayer() {
         this.currentPlayerIdx = this.currentPlayerIdx + 1;
-        if (this.currentPlayerIdx >= this.Players.length)
+        if (this.currentPlayerIdx >= this.players.length)
             this.currentPlayerIdx = 0;
-        this.Players[this.currentPlayerIdx].play();
+        this.players[this.currentPlayerIdx].play();
     }
 }
 

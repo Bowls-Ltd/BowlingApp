@@ -1,6 +1,3 @@
-import {PlayerView} from "./PlayerView"
-
-
 class ViewConfigForm {
     private body: HTMLElement
     private configDiv: HTMLElement
