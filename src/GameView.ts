@@ -3,7 +3,6 @@ import {title} from './Title'
 import {Player} from './Player'
 import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
-import {Player} from './Player'
 
 class GameView {
     private gameDiv:       HTMLElement
