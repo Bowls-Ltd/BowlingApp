@@ -1,9 +1,6 @@
 name: Publish tagged version
 
-on:
-  push:
-    tags:
-      - "v*.*.*"
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -28,14 +25,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Package
-        run: zip -r bowling-app_${{ steps.facts.outputs.SOURCE_TAG }}.zip ./build
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: bowling-app_${{ steps.facts.outputs.SOURCE_TAG }}.zip
-
       - name: Deploy
         run: |
           eval $(ssh-agent)
@@ -44,7 +33,7 @@ jobs:
           # ssh-tenpins.alwaysdata.net:22 SSH-2.0-OpenSSH_7.9p1 Debian-10+deb10u2
           |1|BY/zySEJHSL3sMqAXbYQN7OeOls=|DLGmjW8bWiean/wCkgkIrEgkWgU= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOa3mkOQJewrYicU/FEzqu2l1IYehH8DqNFiNRzLf8Wp
           EOF
-          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/tenpins/stable/
+          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/tenpins/dev/
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           RSYNC_RSH: "ssh -o UserKnownHostsFile=/tmp/known_hosts"
