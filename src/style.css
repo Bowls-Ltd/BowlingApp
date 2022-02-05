@@ -72,6 +72,22 @@ body {
     display: inherit;
 }
 
+.button-up {
+    display: inherit;
+}
+
+.button-down{
+    display: none;
+}
+
+.button-up:active {
+    display: none;
+}
+
+.button-up:active + .button-down {
+    display: inherit;
+}
+
 /* CONFIG FORM VIEW */
 
 .config-form-view-div {
@@ -108,6 +124,26 @@ body {
 .config-form-img-plus {
     width: 60px;
 }
+
+.config-form-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.config-form-number {
+    margin-left: var(--size1);
+    margin-right: var(--size1);
+}
+
+.config-form-img-minus {
+    width: 50px;
+}
+
+.config-form-img-plus {
+    width: 50px;
+}
+
 
 /* GAME VIEW */
 

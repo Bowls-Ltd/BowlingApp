@@ -24,6 +24,8 @@ class ConfigFormView {
     private buttonValidateUp: HTMLImageElement
     private buttonValidateDown: HTMLImageElement
 
+    private buttonValidate: HTMLElement
+    private p: HTMLElement
     private errorBox: HTMLElement
 
     constructor(rootElement : HTMLElement) {
