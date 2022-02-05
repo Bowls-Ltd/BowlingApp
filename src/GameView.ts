@@ -1,8 +1,8 @@
 import {Game} from './Game'
 import {title} from './Title'
 import {PlayerView} from './PlayerView'
-import {RollInputView} from './RollInputView'
 import {Player} from './Player'
+import {RollInputView} from './RollInputView'
 
 class GameView {
     private gameDiv:       HTMLElement
@@ -55,10 +55,15 @@ class GameView {
         rootElement.appendChild(this.gameDiv)
     }
 
-    public update(game: Game) : void {
-        for (let i = 0; i < game.getPlayers().length; i++) {
-            this.playerViews[i].update(game.getPlayers()[i])
+    public update(currPlayer : Player, players : Array<Player>) : void {
+        this.currentPlayer.innerHTML = "C'est à " + currPlayer.getName() + ' de jouer :'
+        for (let i = 0; i < players.length; i++) {
+            this.playerViews[i].update(players[i])
         }
+    }
+
+    public getRollInput() : RollInputView {
+        return this.rollInput;
     }
 
     public displayWinner(winners : Array<Player>) : void {

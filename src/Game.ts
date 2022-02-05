@@ -85,6 +85,7 @@ class Game {
         for(let c of this.onGameEndedCallback)
             c();
     }
+
 }
 
 type GameEndedCallback = () => void;
