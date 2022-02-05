@@ -1,6 +1,9 @@
 import { Game } from "../src/Game";
 import { Player } from "../src/Player";
 
+
+function callback() { console.log("callback"); }
+
 describe("Test Game class", () => {
     describe("Game constructor", () => {
         test("Game(NaN, 5)", () => {
@@ -78,8 +81,11 @@ describe("Test Game class", () => {
             expect(players[2].isPlaying()).toBe(false)
         });
 
-        test("Game ending" , () => {
+        test("Game ending 1 winner" , () => {
             const game = new Game(3, 10)
+            let end : Boolean = false;
+            let f = () => { end = true; }
+            game.attachGameEndedCallback(f)
             game.startPlaying()
             const players = game["players"]
             for(let turnInd = 0; turnInd < 10; turnInd = turnInd + 1)
@@ -92,9 +98,35 @@ describe("Test Game class", () => {
                 }
             }
             expect(game.hasEnded()).toBe(true);
-            expect(game.getWinner().getName()).toBe("Joueur 3");
+            expect(game.getWinners().length).toBe(1)
+            expect(game.getWinners()[0].getName()).toBe("Joueur 3");
+            expect(end).toBe(true)
        }); 
 
+        test("Game ending 2 winners" , () => {
+                const game = new Game(3, 10)
+                game.startPlaying()
+                let end : Boolean = false;
+                let f = () => { end = true; }
+                game.attachGameEndedCallback(f)
+                const players = game["players"]
+                for(let turnInd = 0; turnInd < 10; turnInd = turnInd + 1)
+                {
+                    for(let playerInd = 0; playerInd < 3; playerInd = playerInd + 1)
+                    {
+                        if (playerInd != 0)
+                            players[playerInd].makeTry(2)
+                        else
+                            players[playerInd].makeTry(1)
+                        players[playerInd].makeTry(3)
+                        game.nextPlayer()
+                    }
+                }
+                expect(game.hasEnded()).toBe(true)
+                expect(game.getWinners().length).toBe(2)
+                expect(game.getWinners()[0].getName()).toBe("Joueur 2")
+                expect(game.getWinners()[1].getName()).toBe("Joueur 3")
+                expect(end).toBe(true)
+        }); 
     });
-
 });
