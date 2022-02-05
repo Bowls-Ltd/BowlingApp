@@ -46,7 +46,16 @@ class Game {
     }
 
     public getWinner(): Player {
-        return new Player("Jean-Michel", this.nbPins);
+        let maxScore : number = -1;
+        let winner : Player;
+        for(let P of this.players) {
+            let score : number = P.computeAccumulatedScores()[9];
+            if( score > maxScore) {
+                winner = P;
+                maxScore = score;
+            }
+        }
+        return winner;
     }
 
     public nextPlayer() {
