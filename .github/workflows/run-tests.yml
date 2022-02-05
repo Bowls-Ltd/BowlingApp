@@ -15,3 +15,5 @@ jobs:
         run: ./docker-npm install
       - name: Run the tests
         run: ./docker-npm run test
+      - name: Run the build
+        run: ./docker-npm run build
