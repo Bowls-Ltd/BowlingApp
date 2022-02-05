@@ -24,7 +24,7 @@ import {initGame} from "../src/Init"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
-describe('ConfigFormView', () => {
+describe.skip('ConfigFormView', () => {
     let view, divForm, nplayersTitle, nplayersInput, npinsTitle, npinsInput, button, error
     beforeEach(() => {
         document.documentElement.innerHTML = html.toString()
