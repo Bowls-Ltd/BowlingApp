@@ -1,4 +1,7 @@
+import {title} from "./Title"
+
 class ConfigFormView {
+    private title: HTMLElement
     private configDiv: HTMLElement
     private nbPlayersTitle: HTMLElement
     private inputNbPlayers: HTMLInputElement
@@ -14,6 +17,11 @@ class ConfigFormView {
         this.configDiv.classList.add("pretty-container");
         this.configDiv.classList.add("config-form-view-div");
         this.configDiv.id = "config-form"
+
+        this.title = document.createElement('div')
+        this.title.id = 'config-game-title'
+        this.title.classList.add('game-title')
+        this.title.innerHTML = title
 
         this.nbPlayersTitle = document.createElement('div')
         this.nbPlayersTitle.classList.add("config-form-view-title");
@@ -43,6 +51,7 @@ class ConfigFormView {
         this.errorBox.style.visibility = "hidden"
 
         this.p.appendChild(this.buttonValidate)
+        this.configDiv.appendChild(this.title)
         this.configDiv.appendChild(this.nbPlayersTitle)
         this.configDiv.appendChild(this.inputNbPlayers)
         this.configDiv.appendChild(this.nbPinsTitle)
