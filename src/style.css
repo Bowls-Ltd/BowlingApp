@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Pixel Gosub';
+    src: url("./fonts/Pixel Gosub.ttf");
+}
+
 :root {
     --size1: 1rem;
     --size2: 2rem;
@@ -13,6 +18,7 @@ body {
     background-position: left;
     background-size: cover;
     height: 100vh;
+    font-family: 'Pixel Gosub', Arial, Helvetica, sans-serif;
 }
 
 /* COMMON */
