@@ -4,7 +4,6 @@ import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
 
 class GameView {
-    private body:          HTMLElement
     private gameDiv:       HTMLElement
     private title:         HTMLElement
     private inputDiv:      HTMLElement
@@ -15,10 +14,11 @@ class GameView {
     private resultDiv:     HTMLElement
     private winner:        HTMLElement
 
-    constructor(game: Game) {
-        this.body = document.body
+    constructor(rootElement: HTMLElement, game: Game) {
 
         this.gameDiv = document.createElement('div')
+        this.gameDiv.classList.add("pretty-container");
+        this.gameDiv.classList.add("game-view-div");
         this.gameDiv.id = 'game-div'
 
         this.title = document.createElement('h1')
@@ -31,7 +31,7 @@ class GameView {
         this.currentPlayer.id = 'current-player'
         this.currentPlayer.innerHTML = "C'est à " + game.getCurrentPlayer().getName() + ' de jouer :'
         this.inputDiv.appendChild(this.currentPlayer)
-        this.rollInput = new RollInputView(this.inputDiv)
+        this.rollInput = new RollInputView(this.inputDiv, game.getPlayers().length)
 
         this.playerDiv = document.createElement('div')
         this.playerDiv.id = 'player-div'
@@ -50,7 +50,7 @@ class GameView {
         this.gameDiv.appendChild(this.inputDiv)
         this.gameDiv.appendChild(this.playerDiv)
         this.gameDiv.appendChild(this.winner)
-        this.body.appendChild(this.gameDiv)
+        rootElement.appendChild(this.gameDiv)
     }
 
     public update(game: Game) : void {
