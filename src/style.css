@@ -182,11 +182,6 @@ body {
     width: 100%;
 }
 
-.configplayer-div {
-    display: flex;
-    flex-direction: row;
-}
-
 /* CONFETTIS */
 
 .confetti-view-container {
