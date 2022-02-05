@@ -18,9 +18,9 @@ import {
   // adds special assertions like toHaveTextContent
   import '@testing-library/jest-dom'
 
+import {ConfigFormView} from "../src/ConfigFormView"
 import {Game} from "../src/Game"
 import {initGame} from "../src/Init"
-import {ConfigFormView} from "../src/ConfigFormView"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 

@@ -31,7 +31,7 @@ class GameView {
         this.currentPlayer.id = 'current-player'
         this.currentPlayer.innerHTML = "C'est à " + game.getCurrentPlayer().getName() + ' de jouer :'
         this.inputDiv.appendChild(this.currentPlayer)
-        this.rollInput = new RollInputView(this.inputDiv)
+        this.rollInput = new RollInputView(this.inputDiv, game.getPlayers().length)
 
         this.playerDiv = document.createElement('div')
         this.playerDiv.id = 'player-div'

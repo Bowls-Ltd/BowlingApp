@@ -1,7 +1,7 @@
+import {ConfigFormView} from "./ConfigFormView"
 import {Game} from "./Game"
 import {GameView} from "./GameView"
 import {Player} from "./Player"
-import {ConfigFormView} from "./ConfigFormView"
 
 function init() {
     const mainContainer = document.getElementById("main-container")
@@ -9,14 +9,14 @@ function init() {
     configFormView.attachGameCreationCallback(initGame)
 }
 
-function initGame(view: ConfigFormView, nbPlayers: number, nbPins: number) {
+function initGame(configFormView: ConfigFormView, nbPlayers: number, nbPins: number) {
     let game
     try {
         game = new Game(nbPlayers, nbPins)
-        view.destroy()
+        configFormView.destroy()
     }
     catch (e: any) {
-        view.printError(e)
+        configFormView.printError(e)
         return
     }
 
