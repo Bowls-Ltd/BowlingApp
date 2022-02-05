@@ -58,10 +58,12 @@ body {
 
 .button-up {
     display: inherit;
+    cursor: pointer;
 }
 
 .button-down{
     display: none;
+    cursor: pointer;
 }
 
 .button-up:active {
@@ -99,6 +101,7 @@ body {
     margin-right: var(--size1);
     font-size: var(--size2);
     width: var(--size3);
+    text-align: center;
 }
 
 .number-selector-div {
@@ -158,6 +161,25 @@ body {
 
 .game-view-div {
     background: rgba(255,255,255,0.7);
+}
+
+/* ROLL INPUT */
+
+.rollinput-view-img {
+    width: 60px;
+}
+
+.rollinput-view-div {
+    display:flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.rollinput-view-text {
+    margin-right: var(--size1);
+    font-size: var(--size2);
 }
 
 /* PLAYER VIEW */

@@ -22,7 +22,7 @@ import {RollInputView} from "../src/RollInputView"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
-describe('RollInputView', () => {
+describe.skip('RollInputView', () => {
     let view, rollView, pinInput, pinLabel, pinSubmit, pinError
     beforeEach(() => {
         view = new RollInputView(document.body, 8)
