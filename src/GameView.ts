@@ -60,10 +60,18 @@ class GameView {
         }
     }
 
-    public displayWinner(game : Game) : void {
-        if(game.getWinner() !== null && game.getWinner() != undefined)
+    public displayWinner(winners : Array<Player>) : void {
+        if(winners.length === 1)
         {
-            this.winner.innerHTML = game.getWinner().getName() + " a gagné la partie"
+            this.winner.innerHTML = winners[0].getName() + " a gagné la partie"
+            this.winner.style.visibility = "visible"
+        }
+        else if (winners.length > 1)
+        {
+            this.winner.innerHTML = winners[0].getName()
+            for(let i = 1; i < winners.length; i = i + 1)
+                this.winner.innerHTML += ", " + winners[i].getName() 
+            this.winner.innerHTML += " ont gagné la partie"
             this.winner.style.visibility = "visible"
         }
 
