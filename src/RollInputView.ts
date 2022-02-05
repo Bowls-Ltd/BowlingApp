@@ -39,10 +39,6 @@ class RollInputView {
         mainContainer.appendChild(this.rollView);
     }
 
-    public destroy() {
-        this.rollView.remove()
-    }
-
     public attachRollInputCallback(callback: RollInputCallback) : void {
         this.pinSubmit.addEventListener("click", () => {
             callback(parseInt(this.pinInput.value));
@@ -52,6 +48,11 @@ class RollInputView {
     public printError(msg: string) : void {
         this.pinError.innerHTML = msg
         this.pinError.style.visibility = "visible"
+    }
+
+    public hideError(): void {
+        this.pinError.style.visibility = "hidden"
+        this.pinError.innerHTML = "" 
     }
 }
 
