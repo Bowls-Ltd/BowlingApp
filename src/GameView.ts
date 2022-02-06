@@ -1,5 +1,4 @@
 import {Game} from './Game'
-import {title} from './Title'
 import {Player} from './Player'
 import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
@@ -9,15 +8,13 @@ class GameView {
     private gameDiv:         HTMLElement
     private title:           HTMLElement
     private inputDiv:        HTMLElement
-    private currentPlayer:   HTMLElement
     private rollInput:       RollInputView
     private playerDiv:       HTMLElement
     private leaderBoardView: LeaderBoardView;
     private resultDiv:       HTMLElement
     private winner:          HTMLElement
 
-    constructor(rootElement: HTMLElement, game: Game) {
-
+    constructor(rootElement: HTMLElement, game: Game, title : string) {
         this.gameDiv = document.createElement('div')
         this.gameDiv.classList.add("pretty-container");
         this.gameDiv.classList.add("game-view-div");
@@ -30,10 +27,6 @@ class GameView {
 
         this.inputDiv = document.createElement('div')
         this.inputDiv.id = 'input-div'
-        this.currentPlayer = document.createElement('p')
-        this.currentPlayer.id = 'current-player'
-        this.currentPlayer.innerHTML = "C'est à " + game.getCurrentPlayer().getName() + ' de jouer :'
-        this.inputDiv.appendChild(this.currentPlayer)
         this.rollInput = new RollInputView(this.inputDiv, game.getPins())
 
         this.playerDiv = document.createElement('div')
@@ -55,8 +48,8 @@ class GameView {
     }
 
     public update(currPlayer : Player, players : Array<Player>) : void {
-        this.currentPlayer.innerHTML = "C'est à " + currPlayer.getName() + ' de jouer :'
         this.leaderBoardView.update(players);
+        this.rollInput.update(currPlayer.getRemainingPins());
     }
 
     public getRollInput() : RollInputView {
@@ -77,6 +70,7 @@ class GameView {
             this.winner.innerHTML += " ont gagné la partie"
             this.winner.style.visibility = "visible"
         }
+        this.leaderBoardView.displayWinners(winners);
 
     }
 }

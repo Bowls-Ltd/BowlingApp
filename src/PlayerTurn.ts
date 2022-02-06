@@ -12,7 +12,7 @@ class PlayerTurn {
         this.remainingPins = nbPins;
     }
 
-    addPins(pinsNb: number): void {
+    public addPins(pinsNb: number): void {
         if (!Number.isInteger(pinsNb))
             throw new Error("invalid input");
         if (pinsNb < 0 || pinsNb > this.totalPins)
@@ -38,11 +38,11 @@ class PlayerTurn {
                 
     }
 
-    getShots() {
+    public getShots() {
         return this.shots;
     }
 
-    pinsSum(): number {
+    public pinsSum(): number {
         let sum = 0;
         this.shots.forEach((shot) => {
             sum += shot;
@@ -50,19 +50,23 @@ class PlayerTurn {
         return sum;
     }
 
-    isOver(): boolean {
+    public isOver(): boolean {
         if (this.isLastTurn)
             return this.shots.length === 3 || (this.shots.length === 2 && !this.isSpare() && !this.isStrike());
         else
             return this.shots.length === 2 || this.isStrike();
     }
 
-    isStrike(): boolean {
+    public isStrike(): boolean {
         return this.shots.length >= 1 && this.shots[0] === this.totalPins;
     }
 
-    isSpare(): boolean {
+    public isSpare(): boolean {
         return (this.shots.length >= 2 && this.shots[0] + this.shots[1] === this.totalPins);
+    }
+
+    public getRemainingPins() : number {
+        return this.remainingPins;
     }
 }
 
