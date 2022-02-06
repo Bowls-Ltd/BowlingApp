@@ -1,0 +1,38 @@
+name: Publish dev version
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  publish-dev:
+    if: github.repository == 'Bowls-Ltd/BowlingApp'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install the dependencies
+        run: npm install
+
+      - name: Run the tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        run: |
+          eval $(ssh-agent)
+          ssh-add - <<<"$SSH_KEY"
+          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/dev/
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          RSYNC_RSH: "ssh -o StrictHostKeyChecking=no"

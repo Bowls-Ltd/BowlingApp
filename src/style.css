@@ -3,11 +3,26 @@
     src: url("./fonts/Pixel Gosub.ttf");
 }
 
-:root {
-    --size1: 1rem;
-    --size2: 2rem;
-    --size3: 3rem;
+
+
+@media (min-height: 400px)
+{
+    :root {
+        --size1: 1rem;
+        --size2: 2rem;
+        --size3: 3rem;
+    }
 }
+
+@media (max-height: 400px)
+{
+    :root {
+       --size1: 0.7rem;
+       --size2: 1.5rem;
+       --size3: 2rem;
+    }
+}
+
 
 body {
     margin: 0;
@@ -51,17 +66,28 @@ body {
     border-radius: var(--size2);
 }
 
-.game-title {
-    font-size: var(--size2);
-    margin-bottom: var(--size2);
+@media (max-height: 400px) {
+    .game-title {
+        font-size: var(--size2);
+        margin-bottom: var(--size1);
+    }
+}
+
+@media (min-height: 400px) {
+    .game-title {
+        font-size: var(--size2);
+        margin-bottom: var(--size2);
+    }
 }
 
 .button-up {
     display: inherit;
+    cursor: pointer;
 }
 
 .button-down{
     display: none;
+    cursor: pointer;
 }
 
 .button-up:active {
@@ -99,6 +125,7 @@ body {
     margin-right: var(--size1);
     font-size: var(--size2);
     width: var(--size3);
+    text-align: center;
 }
 
 .number-selector-div {
@@ -117,15 +144,15 @@ body {
 }
 
 .config-form-img-validate {
-    width: 100px;
+    width: 20px;
 }
 
 .config-form-img-minus {
-    width: 60px;
+    width: 15px;
 }
 
 .config-form-img-plus {
-    width: 60px;
+    width: 15px;
 }
 
 .config-form-div {
@@ -138,13 +165,13 @@ body {
 }
 
 .number-selector-img {
-    width: 60px;
+    width: 30px;
 }
 
 /* CONFIG FORM VIEW */
 
 .config-form-img-validate {
-    width: 100px;
+    width: 40px;
 }
 
 .config-form-view-div {
@@ -159,6 +186,36 @@ body {
 .game-view-div {
     background: rgba(255,255,255,0.7);
 }
+
+/* ROLL INPUT */
+
+.rollinput-view-img {
+    width: 30px;
+}
+
+.rollinput-view-div {
+    display:flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-height: 400px){
+    .rollinput-view-text {
+        visibility: collapse;
+    }
+}
+
+@media (min-height: 400px){
+    .rollinput-view-text {
+        margin-right: var(--size1);
+        font-size: var(--size2);
+    }
+}
+
+
+
 
 /* PLAYER VIEW */
 
@@ -279,4 +336,40 @@ body {
     left: 100%;
     animation-delay: -2.5s;
     background-color: #f9c4ea;
+}
+
+
+
+
+/* LeaderBoardView and PlayerView */
+
+table {
+    width: 100%;
+    height: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+td {
+    text-align: center;
+    width: 9px;
+    height: 30px;
+}
+
+.active-player {
+    color: red;
+}
+
+.waiting-player {
+    color : black;
+}
+
+.winner {
+    color : green;
+}
+
+.next-cell {
+    background-color: rgba(81, 28, 99, 0.4);
 }

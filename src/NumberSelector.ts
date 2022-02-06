@@ -15,6 +15,8 @@ class NumberSelector {
     private upperBound: number
     private lowerBound: number
 
+    private NumberSelectedCallbacks : Array<NumberSelectorCallback>;
+
     constructor(rootElement: HTMLElement, title: string,
                 defaultValue: number, lowerBound: number, upperBound: number = 10) {
         this.currentValue = defaultValue
@@ -81,6 +83,8 @@ class NumberSelector {
 
         this.buttonPlusDiv.addEventListener('click', () => { this.incrementValue(); })
         this.buttonMinusDiv.addEventListener('click', () => { this.decrementValue() })
+
+        this.NumberSelectedCallbacks = new Array<NumberSelectorCallback>();
     }
 
     public incrementValue(): void {
@@ -88,6 +92,7 @@ class NumberSelector {
         {
             this.currentValue++
             this.numberDiv.innerHTML = this.currentValue.toString()
+            this.notify(this.currentValue);
         }
     }
 
@@ -96,6 +101,7 @@ class NumberSelector {
         {
             this.currentValue--
             this.numberDiv.innerHTML = this.currentValue.toString()
+            this.notify(this.currentValue);
         }
     }
 
@@ -107,6 +113,23 @@ class NumberSelector {
         this.errorBox.innerHTML = errorMsg
         this.errorBox.style.visibility = 'visible'
     }
+
+    public update(upperBound : number) {
+        this.upperBound = upperBound;
+        this.currentValue = 0;
+        this.numberDiv.innerHTML = this.currentValue.toString()
+    }
+
+    public attachNumberSelectedCallback(callback : NumberSelectorCallback) {
+        this.NumberSelectedCallbacks.push(callback);
+    }
+
+    private notify(nb: number) {
+        for(let c of this.NumberSelectedCallbacks)
+            c(nb);
+    }
 }
+
+type NumberSelectorCallback = (selectedNumber: number) => void
 
 export {NumberSelector}

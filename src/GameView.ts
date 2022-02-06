@@ -1,22 +1,20 @@
 import {Game} from './Game'
-import {title} from './Title'
 import {Player} from './Player'
 import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
+import {LeaderBoardView} from './LeaderBoardView'
 
 class GameView {
-    private gameDiv:       HTMLElement
-    private title:         HTMLElement
-    private inputDiv:      HTMLElement
-    private currentPlayer: HTMLElement
-    private rollInput:     RollInputView
-    private playerDiv:     HTMLElement
-    private playerViews:   Array<PlayerView>
-    private resultDiv:     HTMLElement
-    private winner:        HTMLElement
+    private gameDiv:         HTMLElement
+    private title:           HTMLElement
+    private inputDiv:        HTMLElement
+    private rollInput:       RollInputView
+    private playerDiv:       HTMLElement
+    private leaderBoardView: LeaderBoardView;
+    private resultDiv:       HTMLElement
+    private winner:          HTMLElement
 
-    constructor(rootElement: HTMLElement, game: Game) {
-
+    constructor(rootElement: HTMLElement, game: Game, title : string) {
         this.gameDiv = document.createElement('div')
         this.gameDiv.classList.add("pretty-container");
         this.gameDiv.classList.add("game-view-div");
@@ -29,18 +27,12 @@ class GameView {
 
         this.inputDiv = document.createElement('div')
         this.inputDiv.id = 'input-div'
-        this.currentPlayer = document.createElement('p')
-        this.currentPlayer.id = 'current-player'
-        this.currentPlayer.innerHTML = "C'est à " + game.getCurrentPlayer().getName() + ' de jouer :'
-        this.inputDiv.appendChild(this.currentPlayer)
         this.rollInput = new RollInputView(this.inputDiv, game.getPins())
 
         this.playerDiv = document.createElement('div')
         this.playerDiv.id = 'player-div'
-        this.playerViews = []
-        game.getPlayers().forEach( p => {
-            this.playerViews.push(new PlayerView(this.playerDiv, p))
-        })
+
+        this.leaderBoardView = new LeaderBoardView(this.playerDiv, game.getPlayers())
 
         this.winner = document.createElement('p')
         this.winner.id = "config-error-box"
@@ -56,10 +48,8 @@ class GameView {
     }
 
     public update(currPlayer : Player, players : Array<Player>) : void {
-        this.currentPlayer.innerHTML = "C'est à " + currPlayer.getName() + ' de jouer :'
-        for (let i = 0; i < players.length; i++) {
-            this.playerViews[i].update(players[i])
-        }
+        this.leaderBoardView.update(players);
+        this.rollInput.update(currPlayer.getRemainingPins());
     }
 
     public getRollInput() : RollInputView {
@@ -80,6 +70,7 @@ class GameView {
             this.winner.innerHTML += " ont gagné la partie"
             this.winner.style.visibility = "visible"
         }
+        this.leaderBoardView.displayWinners(winners);
 
     }
 }

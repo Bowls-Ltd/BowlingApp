@@ -13,6 +13,10 @@ class Player {
         this.currentTurn = null;
     }
 
+    public getMaxPins() : number {
+        return this.nbPins;
+    }
+
 
     public getName() : string {
         return this.name;
@@ -43,11 +47,25 @@ class Player {
     }
 
     public getTurns(): Array<PlayerTurn> {
-        return this.turns;
+        if(this.currentTurn === null)
+            return this.turns;
+        else
+        {
+            let copy : Array<PlayerTurn> = [...this.turns]
+            copy.push(this.currentTurn)
+            return copy;
+        }
     }
 
     public hasEnded() : boolean {
         return (this.turns.length === 10 && this.turns[9].isOver())
+    }
+
+    public getRemainingPins() : number {
+        if (this.currentTurn === null) 
+            return this.nbPins;
+        else
+            return this.currentTurn.getRemainingPins();
     }
 
     public computeAccumulatedScores(): Array<number> {
