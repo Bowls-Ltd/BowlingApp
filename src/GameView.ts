@@ -48,9 +48,9 @@ class GameView {
         rootElement.appendChild(this.gameDiv)
     }
 
-    public update(currPlayer : Player, players : Array<Player>) : void {
-        this.leaderBoardView.update(players);
-        this.rollInput.update(currPlayer.getRemainingPins());
+    public update(remainingPins : number, players : Array<Player>) : void {
+        this.leaderBoardView.update();
+        this.rollInput.update(remainingPins);
     }
 
     public getRollInput() : RollInputView {
