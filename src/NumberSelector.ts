@@ -24,6 +24,7 @@ class NumberSelector {
         this.upperBound = upperBound
 
         this.mainDiv = document.createElement('div')
+        this.mainDiv.id = 'selector-main-div'
 
         this.titleDiv = document.createElement('div')
         this.titleDiv.classList.add('number-selector-title')
@@ -32,24 +33,8 @@ class NumberSelector {
         this.selectorDiv = document.createElement('div')
         this.selectorDiv.classList.add('number-selector-div')
 
-        this.buttonPlusDiv = document.createElement('div')
-
-        this.imgButtonPlusUp = document.createElement('img')
-        this.imgButtonPlusUp.classList.add('number-selector-img')
-        this.imgButtonPlusUp.classList.add('button-up')
-        this.imgButtonPlusUp.src = './images/button_plus_up.png'
-
-        this.imgButtonPlusDown = document.createElement('img')
-        this.imgButtonPlusDown.classList.add('number-selector-img')
-        this.imgButtonPlusDown.classList.add('button-down')
-        this.imgButtonPlusDown.src = './images/button_plus_down.png'
-
-
-        this.numberDiv = document.createElement('div')
-        this.numberDiv.classList.add('number-selector-number')
-        this.numberDiv.innerHTML = this.currentValue.toString()
-
         this.buttonMinusDiv = document.createElement('div')
+        this.buttonMinusDiv.id = 'selector-minus-div'
 
         this.imgButtonMinusUp = document.createElement('img')
         this.imgButtonMinusUp.classList.add('number-selector-img')
@@ -60,6 +45,23 @@ class NumberSelector {
         this.imgButtonMinusDown.classList.add('number-selector-img')
         this.imgButtonMinusDown.classList.add('button-down')
         this.imgButtonMinusDown.src = './images/button_minus_down.png'
+
+        this.numberDiv = document.createElement('div')
+        this.numberDiv.classList.add('number-selector-number')
+        this.numberDiv.innerHTML = this.currentValue.toString()
+
+        this.buttonPlusDiv = document.createElement('div')
+        this.buttonPlusDiv.id = 'selector-plus-div'
+
+        this.imgButtonPlusUp = document.createElement('img')
+        this.imgButtonPlusUp.classList.add('number-selector-img')
+        this.imgButtonPlusUp.classList.add('button-up')
+        this.imgButtonPlusUp.src = './images/button_plus_up.png'
+
+        this.imgButtonPlusDown = document.createElement('img')
+        this.imgButtonPlusDown.classList.add('number-selector-img')
+        this.imgButtonPlusDown.classList.add('button-down')
+        this.imgButtonPlusDown.src = './images/button_plus_down.png'
 
         this.errorBox = document.createElement('div')
         this.errorBox.style.background = 'red'
@@ -81,15 +83,14 @@ class NumberSelector {
 
         rootElement.appendChild(this.mainDiv)
 
-        this.buttonPlusDiv.addEventListener('click', () => { this.incrementValue(); })
         this.buttonMinusDiv.addEventListener('click', () => { this.decrementValue() })
+        this.buttonPlusDiv.addEventListener('click', () =>  { this.incrementValue() })
 
         this.NumberSelectedCallbacks = new Array<NumberSelectorCallback>();
     }
 
     public incrementValue(): void {
-        if (this.currentValue < this.upperBound)
-        {
+        if (this.currentValue < this.upperBound) {
             this.currentValue++
             this.numberDiv.innerHTML = this.currentValue.toString()
             this.notify(this.currentValue);
@@ -97,8 +98,7 @@ class NumberSelector {
     }
 
     public decrementValue(): void {
-        if (this.lowerBound < this.currentValue)
-        {
+        if (this.lowerBound < this.currentValue) {
             this.currentValue--
             this.numberDiv.innerHTML = this.currentValue.toString()
             this.notify(this.currentValue);
