@@ -120,46 +120,6 @@ describe('ConfigFormView', () => {
         expect(document.querySelector('#config-form')).toBeNull();
     })
 
-    test.skip('Negative player number', () => {
-        setPlayerInput(-5);
-        setPinsInput(5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Negative pin number', () => {
-        setPlayerInput(5);
-        setPinsInput(-5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPins must be positive')
-    })
-
-    test.skip('Negative player and pin number', () => {
-        setPlayerInput(-5);
-        setPinsInput(-5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Zero player', () => {
-        setPlayerInput(0);
-        setPinsInput(5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Zero pins', () => {
-        setPlayerInput(5);
-        setPinsInput(0);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPins must be positive')
-    })
-
     test('GameCreationCallback', () => {
         let actualPinCount: number;
         view.attachGameCreationCallback((view_, nbPlayers_, nbPins_) => {
