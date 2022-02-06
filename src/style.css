@@ -3,11 +3,20 @@
     src: url("./fonts/Pixel Gosub.ttf");
 }
 
+/*
+//TODO media queries on the following sizes and images size
 :root {
     --size1: 1rem;
     --size2: 2rem;
     --size3: 3rem;
+}*/
+
+:root {
+    --size1: 0.7rem;
+    --size2: 1.5rem;
+    --size3: 2rem;
 }
+
 
 body {
     margin: 0;
@@ -120,15 +129,15 @@ body {
 }
 
 .config-form-img-validate {
-    width: 100px;
+    width: 20px;
 }
 
 .config-form-img-minus {
-    width: 60px;
+    width: 15px;
 }
 
 .config-form-img-plus {
-    width: 60px;
+    width: 15px;
 }
 
 .config-form-div {
@@ -141,13 +150,13 @@ body {
 }
 
 .number-selector-img {
-    width: 60px;
+    width: 30px;
 }
 
 /* CONFIG FORM VIEW */
 
 .config-form-img-validate {
-    width: 100px;
+    width: 40px;
 }
 
 .config-form-view-div {
@@ -166,7 +175,7 @@ body {
 /* ROLL INPUT */
 
 .rollinput-view-img {
-    width: 60px;
+    width: 30px;
 }
 
 .rollinput-view-div {
@@ -301,4 +310,19 @@ body {
     left: 100%;
     animation-delay: -2.5s;
     background-color: #f9c4ea;
+}
+
+table {
+    width: 100%;
+    height: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+td {
+    text-align: center;
+    width: 9px;
+    height: 30px;
 }

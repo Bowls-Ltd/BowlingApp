@@ -13,7 +13,7 @@ class RollInputView {
         this.rollView = document.createElement('div');
         this.rollView.id = "roll-view";
 
-        this.pinSelector = new NumberSelector(this.rollView, 'Nombre de quilles', 0, 0, nbPins)
+        this.pinSelector = new NumberSelector(this.rollView, '', 0, 0, nbPins)
         
         this.buttonValidateDiv = document.createElement('div')
         this.buttonValidateDiv.id = 'validate-div'

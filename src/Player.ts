@@ -43,7 +43,14 @@ class Player {
     }
 
     public getTurns(): Array<PlayerTurn> {
-        return this.turns;
+        if(this.currentTurn === null)
+            return this.turns;
+        else
+        {
+            let copy : Array<PlayerTurn> = [...this.turns]
+            copy.push(this.currentTurn)
+            return copy;
+        }
     }
 
     public hasEnded() : boolean {

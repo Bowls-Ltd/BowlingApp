@@ -1,66 +1,79 @@
-import {HtmlOptions} from "istanbul-reports";
-import {PlayerTurn} from "./PlayerTurn"
-import {Player} from "./Player"
+import { HtmlOptions } from "istanbul-reports";
+import { PlayerTurn } from "./PlayerTurn"
+import { Player } from "./Player"
 
 class PlayerView {
-    private mainContainer     : HTMLElement;
-    private playerInfoElement : HTMLElement;
-    private historyContainer  : HTMLElement;
-    private turnsContainer    : HTMLElement;
-    private scoresContainer   : HTMLElement;
+    private firstRow: HTMLTableRowElement;
+    private secondRow: HTMLTableRowElement;
+    private firstRowCells  : Array<HTMLTableCellElement>;
+    private secondRowCells : Array<HTMLTableCellElement>;
 
-    public constructor(rootElement : HTMLElement, player : Player) {
-        this.mainContainer = document.createElement("div");
-        this.mainContainer.classList.add("player-view");
 
-        this.playerInfoElement = document.createElement("div");
-        this.playerInfoElement.classList.add("player-view-info");
-        this.playerInfoElement.innerHTML = player.getName();
+    public constructor(rootElement: HTMLTableElement, player: Player) {
+        this.firstRow = rootElement.insertRow(-1);
+        this.secondRow = rootElement.insertRow(-1);
+        this.firstRowCells = new Array<HTMLTableCellElement>()
+        this.secondRowCells = new Array<HTMLTableCellElement>()
 
-        this.historyContainer = document.createElement("div");
-        this.historyContainer.classList.add("player-view-history");
+        for (let i = 0; i < 23; i++) {
+            let td = this.firstRow.insertCell()
+            if (i == 0 || i == 22)
+                td.rowSpan = 2
+            if (i==0)
+                td.textContent = player.getName();
+            else
+                this.firstRowCells.push(td)
+        }
 
-        this.turnsContainer = document.createElement("div");
-        this.turnsContainer.classList.add("player-view-turns");
-        
-        this.scoresContainer = document.createElement("div");
-        this.scoresContainer.classList.add("player-view-scores");
-
-        this.historyContainer.appendChild(this.turnsContainer);
-        this.historyContainer.appendChild(this.scoresContainer);
-
-        this.mainContainer.appendChild(this.playerInfoElement);
-        this.mainContainer.appendChild(this.historyContainer);
-        
-        rootElement.appendChild(this.mainContainer);
+        for (let i = 0; i < 10; i++) {
+            let td = this.secondRow.insertCell()
+            if (i == 9)
+                td.colSpan = 3
+            else
+                td.colSpan = 2
+            this.secondRowCells.push(td)
+        }
+        rootElement.appendChild(this.firstRow);
+        rootElement.appendChild(this.secondRow)
+        console.log("add")
     }
 
     public update(p: Player) {
-        let str : string = "| ";
-        for (let s of p.computeAccumulatedScores()) {
-            str = str + s + " | ";
+        let score: Array<number> = p.computeAccumulatedScores();
+        let bestScore : number = 0;
+        for (let i in score) {
+            if (score[i] > bestScore)
+                bestScore = score[i]
+            this.secondRowCells[i].textContent = String(score[i]);
         }
-        this.scoresContainer.textContent = str;
+        this.firstRowCells[this.firstRowCells.length-1].textContent = String(bestScore)
 
-        str = "| ";
-
-        for (let t of p.getTurns()) {
-            let shots : Array<number> = t.getShots();
-            if(t.isStrike()) {
-                str = str + "X ";
+        let turn: Array<PlayerTurn> = p.getTurns();
+        for (let i = 0; i < turn.length; ++i) {
+            let Ind : number = i * 2;
+            let shots: Array<number> = turn[i].getShots();
+            if (i == 9) {
+                for (let y = 0; y < shots.length; ++y) {
+                    if (shots[y] == 10) this.firstRowCells[Ind + y].textContent = "X";
+                    else if (y > 0 && shots[y] != 0 && shots[y - 1] + shots[y] === 0) this.firstRowCells[Ind + y].textContent = "/";
+                    else this.firstRowCells[Ind + y].textContent = String(shots[y]);
+                }
             }
             else {
-                for(let s of shots) {
-                    str = str + s + " ";
-                    if(t.isSpare()) {
-                        str = str + "/";
-                        break;
+                if (turn[i].isStrike()) {
+                    this.firstRowCells[Ind].textContent = "X";
+                }
+                else {
+                    for (let y = 0; y < shots.length; y++) {
+                        this.firstRowCells[Ind + y].textContent = String(shots[y])
+                        if (turn[i].isSpare()) {
+                            this.firstRowCells[Ind + y + 1].textContent = "/"
+                            break;
+                        }
                     }
                 }
             }
-            str = str + " | ";
         }
-        this.turnsContainer.textContent = str;
     }
 }
 

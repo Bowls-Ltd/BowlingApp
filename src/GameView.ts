@@ -3,17 +3,18 @@ import {title} from './Title'
 import {Player} from './Player'
 import {PlayerView} from './PlayerView'
 import {RollInputView} from './RollInputView'
+import {LeaderBoardView} from './LeaderBoardView'
 
 class GameView {
-    private gameDiv:       HTMLElement
-    private title:         HTMLElement
-    private inputDiv:      HTMLElement
-    private currentPlayer: HTMLElement
-    private rollInput:     RollInputView
-    private playerDiv:     HTMLElement
-    private playerViews:   Array<PlayerView>
-    private resultDiv:     HTMLElement
-    private winner:        HTMLElement
+    private gameDiv:         HTMLElement
+    private title:           HTMLElement
+    private inputDiv:        HTMLElement
+    private currentPlayer:   HTMLElement
+    private rollInput:       RollInputView
+    private playerDiv:       HTMLElement
+    private leaderBoardView: LeaderBoardView;
+    private resultDiv:       HTMLElement
+    private winner:          HTMLElement
 
     constructor(rootElement: HTMLElement, game: Game) {
 
@@ -37,10 +38,8 @@ class GameView {
 
         this.playerDiv = document.createElement('div')
         this.playerDiv.id = 'player-div'
-        this.playerViews = []
-        game.getPlayers().forEach( p => {
-            this.playerViews.push(new PlayerView(this.playerDiv, p))
-        })
+
+        this.leaderBoardView = new LeaderBoardView(this.playerDiv, game.getPlayers())
 
         this.winner = document.createElement('p')
         this.winner.id = "config-error-box"
@@ -57,9 +56,7 @@ class GameView {
 
     public update(currPlayer : Player, players : Array<Player>) : void {
         this.currentPlayer.innerHTML = "C'est à " + currPlayer.getName() + ' de jouer :'
-        for (let i = 0; i < players.length; i++) {
-            this.playerViews[i].update(players[i])
-        }
+        this.leaderBoardView.update(players);
     }
 
     public getRollInput() : RollInputView {
