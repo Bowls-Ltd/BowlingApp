@@ -1,9 +1,9 @@
-name: Run tests
+name: Test and deploy to dev
 
 on: [ push, pull_request ]
 
 jobs:
-  build:
+  test-n-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,3 +23,13 @@ jobs:
 
       - name: Build # even if the tests pass, the build may fail
         run: npm run build
+
+      - name: Deploy
+        if: github.repository == 'Bowls-Ltd/BowlingApp'
+        run: |
+          eval $(ssh-agent)
+          ssh-add - <<<"$SSH_KEY"
+          rsync -av ./build/ tenpins@ssh-tenpins.alwaysdata.net:/home/tenpins/www/dev/
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          RSYNC_RSH: "ssh -o StrictHostKeyChecking=no"
