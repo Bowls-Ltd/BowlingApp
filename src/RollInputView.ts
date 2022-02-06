@@ -5,6 +5,7 @@ class RollInputView {
     private pinSelector: NumberSelector
     private validateText: HTMLElement
     private buttonValidateDiv: HTMLElement
+    private imgValidateDiv: HTMLElement
     private buttonValidateUp: HTMLImageElement
     private buttonValidateDown: HTMLImageElement
     private pinError:      HTMLElement
@@ -24,6 +25,9 @@ class RollInputView {
         this.validateText.classList.add('rollinput-view-text')
         this.validateText.innerHTML = 'Valider'
 
+        this.imgValidateDiv = document.createElement('div')
+        this.imgValidateDiv.id = 'roll-view-validate-div'
+
         this.buttonValidateUp = document.createElement('img')
         this.buttonValidateUp.classList.add('rollinput-view-img')
         this.buttonValidateUp.classList.add('button-up')
@@ -35,8 +39,9 @@ class RollInputView {
         this.buttonValidateDown.src = './images/button_validate_down.png'
 
         this.buttonValidateDiv.appendChild(this.validateText)
-        this.buttonValidateDiv.appendChild(this.buttonValidateUp)
-        this.buttonValidateDiv.appendChild(this.buttonValidateDown)
+        this.imgValidateDiv.appendChild(this.buttonValidateUp)
+        this.imgValidateDiv.appendChild(this.buttonValidateDown)
+        this.buttonValidateDiv.appendChild(this.imgValidateDiv)
 
         this.pinError = document.createElement('p')
         this.pinError.id = "pin-error"
@@ -51,7 +56,7 @@ class RollInputView {
     }
 
     public attachRollInputCallback(callback: RollInputCallback) : void {
-        this.buttonValidateDiv.addEventListener("click", () => {
+        this.imgValidateDiv.addEventListener("click", () => {
             callback(this.pinSelector.getSelectedValue());
         })
     }
