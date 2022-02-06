@@ -18,7 +18,7 @@ class LeaderBoardView {
         rootElement.appendChild(this.mainContainer);
     }
 
-    public update(players: Array<Player>) {
+    public update() {
         for (let entry of Array.from(this.playerViews.entries())) {
             let player = entry[0];
             let view = entry[1];
