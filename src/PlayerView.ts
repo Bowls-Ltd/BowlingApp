@@ -7,9 +7,12 @@ class PlayerView {
     private secondRow: HTMLTableRowElement;
     private firstRowCells  : Array<HTMLTableCellElement>;
     private secondRowCells : Array<HTMLTableCellElement>;
+    private playerNameCell : HTMLTableCellElement;
+    private maxPins : number;
 
 
     public constructor(rootElement: HTMLTableElement, player: Player) {
+        this.maxPins = player.getMaxPins();
         this.firstRow = rootElement.insertRow(-1);
         this.secondRow = rootElement.insertRow(-1);
         this.firstRowCells = new Array<HTMLTableCellElement>()
@@ -20,7 +23,16 @@ class PlayerView {
             if (i == 0 || i == 22)
                 td.rowSpan = 2
             if (i==0)
+            {
                 td.textContent = player.getName();
+                this.playerNameCell = td;
+                if (player.isPlaying()) {
+                    this.playerNameCell.className = "active-player";
+                }
+                else {
+                    this.playerNameCell.className = "waiting-player";
+                }
+            }
             else
                 this.firstRowCells.push(td)
         }
@@ -39,6 +51,14 @@ class PlayerView {
     }
 
     public update(p: Player) {
+        console.log("updating " + p.getName())
+        if (p.isPlaying()) {
+            this.playerNameCell.className = "active-player";
+        }
+        else {
+            this.playerNameCell.className = "waiting-player";
+        }
+
         let score: Array<number> = p.computeAccumulatedScores();
         let bestScore : number = 0;
         for (let i in score) {
@@ -51,11 +71,15 @@ class PlayerView {
         let turn: Array<PlayerTurn> = p.getTurns();
         for (let i = 0; i < turn.length; ++i) {
             let Ind : number = i * 2;
+            this.firstRowCells[Ind].className = "";
+            this.firstRowCells[Ind+1].className = "";
             let shots: Array<number> = turn[i].getShots();
-            if (i == 9) {
+            if (i === 9) {
+                this.firstRowCells[Ind+2].className = "";
                 for (let y = 0; y < shots.length; ++y) {
-                    if (shots[y] == 10) this.firstRowCells[Ind + y].textContent = "X";
-                    else if (y > 0 && shots[y] != 0 && shots[y - 1] + shots[y] === 0) this.firstRowCells[Ind + y].textContent = "/";
+                    if (shots[y] === this.maxPins) this.firstRowCells[Ind + y].textContent = "X";
+                    else if (y > 0 && shots[y] !== 0 && shots[y - 1] + shots[y] === this.maxPins) this.firstRowCells[Ind + y].textContent = "/";
+                    else if (shots[y] === 0) this.firstRowCells[Ind + y].textContent = "-";
                     else this.firstRowCells[Ind + y].textContent = String(shots[y]);
                 }
             }
@@ -65,7 +89,9 @@ class PlayerView {
                 }
                 else {
                     for (let y = 0; y < shots.length; y++) {
-                        this.firstRowCells[Ind + y].textContent = String(shots[y])
+                        if (shots[y] == 0) this.firstRowCells[Ind + y].textContent = "-";
+                        else this.firstRowCells[Ind + y].textContent = String(shots[y])
+
                         if (turn[i].isSpare()) {
                             this.firstRowCells[Ind + y + 1].textContent = "/"
                             break;
@@ -74,6 +100,20 @@ class PlayerView {
                 }
             }
         }
+        if (p.isPlaying())
+        {
+            let ind = turn.length -1
+            this.firstRowCells[2*ind + turn[ind].getShots().length].className = "next-cell"
+        }
+    }
+
+    public winnerDisplay() {
+        // TODO
+        //this.playerNameCell.textContent =  "winner";
+        console.log("winner")
+        this.firstRow.classList.add("winner");
+        this.secondRow.classList.add("winner");
+        this.playerNameCell.className = "winner";
     }
 }
 

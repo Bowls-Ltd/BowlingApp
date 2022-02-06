@@ -1,5 +1,4 @@
 import {NumberSelector} from "./NumberSelector"
-import {title} from "./Title"
 
 class ConfigFormView {
     private title: HTMLElement
@@ -20,7 +19,6 @@ class ConfigFormView {
         this.title = document.createElement('div')
         this.title.id = 'game-title'
         this.title.classList.add('game-title')
-        this.title.innerHTML = title
 
         this.configDiv = document.createElement('div')
         this.configDiv.classList.add("pretty-container")
@@ -53,11 +51,21 @@ class ConfigFormView {
 
         this.configDiv.appendChild(this.title)
         this.playerNumberSelector = new NumberSelector(this.configDiv, 'Nombre de joueurs', 2, 1)
-        this.pinNumberSelector = new NumberSelector(this.configDiv, 'Nombre de quilles', 10, 1, 10)
+        this.pinNumberSelector = new NumberSelector(this.configDiv, 'Nombre de quilles', 10, 1, 100);
+        this.titleUpdate(10);
         this.configDiv.appendChild(this.buttonValidateDiv)
         this.configDiv.appendChild(this.errorBox)
 
         rootElement.appendChild(this.configDiv)
+
+        this.pinNumberSelector.attachNumberSelectedCallback((nb : number) => { this.titleUpdate(nb) });
+    }
+
+    // CBO easter egg
+    private titleUpdate(nb : number) {
+        if (nb > 10)  this.title.textContent = "TenPins (or more...)"
+        else if (nb < 10 ) this.title.textContent = "TenPins (or less...)"
+        else this.title.textContent = "TenPins";
     }
 
     public destroy() {
@@ -74,6 +82,10 @@ class ConfigFormView {
     public printError(msg: string) : void {
         this.errorBox.innerHTML = msg
         this.errorBox.style.visibility = "visible"
+    }
+
+    public getTitle() : string {
+        return this.title.textContent;
     }
 }
 

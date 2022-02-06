@@ -312,6 +312,11 @@ body {
     background-color: #f9c4ea;
 }
 
+
+
+
+/* LeaderBoardView and PlayerView */
+
 table {
     width: 100%;
     height: 100%;
@@ -325,4 +330,20 @@ td {
     text-align: center;
     width: 9px;
     height: 30px;
+}
+
+.active-player {
+    color: red;
+}
+
+.waiting-player {
+    color : black;
+}
+
+.winner {
+    color : green;
+}
+
+.next-cell {
+    background-color: rgba(81, 28, 99, 0.4);
 }
