@@ -373,3 +373,33 @@ td {
 .next-cell {
     background-color: rgba(81, 28, 99, 0.4);
 }
+
+/* Overflow mobile */
+
+#game-div {
+    display: flex;
+    flex-flow: column;
+    max-height: 95%;
+}
+
+#game-title {
+    flex: 0 1 auto;
+}
+
+#input-div {
+    flex: 0 1 auto;
+}
+
+#player-div {
+    flex: 1 1 auto;
+    overflow: scroll;
+}
+
+tr, td {
+    white-space:nowrap;
+    min-height: 30px;
+}
+
+table {
+    height: auto;
+}
