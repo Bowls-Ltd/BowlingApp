@@ -19,50 +19,30 @@ import {
   import '@testing-library/jest-dom'
 
 import {RollInputView} from "../src/RollInputView"
+import { ValidationError } from 'webpack'
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
-describe.skip('RollInputView', () => {
-    let view, rollView, pinInput, pinLabel, pinSubmit, pinError
+describe('RollInputView', () => {
+    let view, rollView, downButton, upButton, validateButton, pinError;
     beforeEach(() => {
+        document.documentElement.innerHTML = html.toString();
         view = new RollInputView(document.body, 8)
         rollView = document.body.querySelector('#roll-view')
-        pinInput = rollView.querySelector('#pin-input')
-        pinLabel = rollView.querySelector('#pin-label')
-        pinSubmit = rollView.querySelector('#pin-submit')
-        pinError  = rollView.querySelector('#pin-error')
-
-        view.attachRollInputCallback((pinCount) => {
-            if (Number.isNaN(pinCount) ||pinCount < 0 || pinCount > 8)
-                view.printError('Error')
-            else
-                view.hideError()
-        })
+        downButton = rollView.querySelector('#selector-minus-div')
+        upButton = rollView.querySelector('#selector-plus-div')
+        validateButton = rollView.querySelector('#roll-view-validate-div')
+        pinError = rollView.querySelector('#pin-error')
     })
 
+
     test('Constructor', () => {
+        expect(view).toBeDefined()
         expect(rollView).toBeDefined()
-        expect(rollView.id).toBe('roll-view')
-
-        expect(pinInput).toBeDefined()
-        expect(pinInput.id).toBe('pin-input')
-        expect(pinInput.type).toBe('number')
-        expect(pinInput.min).toBe('0')
-        expect(pinInput.max).toBe('8')
-
-        expect(pinLabel).toBeDefined()
-        expect(pinLabel.id).toBe('pin-label')
-        expect(pinLabel.innerHTML).toBe('Nombre de quilles ')
-
-        expect(pinSubmit).toBeDefined()
-        expect(pinSubmit.id).toBe('pin-submit')
-        expect(pinSubmit.innerHTML).toBe('Envoyer')
-
+        expect(downButton).toBeDefined()
+        expect(upButton).toBeDefined()
+        expect(validateButton).toBeDefined()
         expect(pinError).toBeDefined()
-        expect(pinError.id).toBe('pin-error')
-        expect(pinError.style.background).toBe('red')
-        expect(pinError.style.color).toBe('white')
-        expect(pinError.style.visibility).toBe('hidden')
     })
 
     test('Print Error', () => {
@@ -76,64 +56,57 @@ describe.skip('RollInputView', () => {
         expect(pinError.style.visibility).toBe('visible')
         expect(pinError.innerHTML).toBe('Error')
         view.hideError()
-        expect(pinError.style.visibility).toBe('visible')
+        expect(pinError.style.visibility).toBe('hidden')
         expect(pinError.innerHTML).toBe('')
     })
 
-    test('Valid Input', () => {
-        for (let i = 0; i <= 8; i++) {
-            pinInput.value = i.toString()
-            fireEvent(pinSubmit, new MouseEvent('click'))
-            expect(pinError.style.visibility).toBe('hidden')
-        }
+    test('Default Input', () => {
+        let end = false;
+        view.attachRollInputCallback(function(nb: number) {
+            expect(nb).toBe(0);
+            end = true;
+        })
+        fireEvent(validateButton, new MouseEvent('click'))
+        expect(end).toBe(true)
     })
 
     test('Upper bound', () => {
-        pinInput.value = '8'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('hidden')
+        for(let i = 0; i <15; i++)
+            fireEvent(upButton, new MouseEvent('click'))
+        let end = false;
+        view.attachRollInputCallback(function(nb: number) {
+            expect(nb).toBe(8);
+            end = true;
+        })
+        fireEvent(validateButton, new MouseEvent('click'))
+        expect(end).toBe(true)
     })
 
     test('Lower bound', () => {
-        pinInput.value = '0'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('hidden')
+        for(let i = 0; i <15; i++)
+        fireEvent(downButton, new MouseEvent('click'))
+        let end = false;
+        view.attachRollInputCallback(function(nb: number) {
+            expect(nb).toBe(0);
+            end = true;
+        })
+        fireEvent(validateButton, new MouseEvent('click'))
+        expect(end).toBe(true)
     })
 
-    test('Negative Number', () => {
-        pinInput.value = '-1'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('visible')
-        expect(pinError.innerHTML).toBe('Error')
+    test('normal input', () => {
+
+        for(let i = 0; i <3; i++)
+            fireEvent(upButton, new MouseEvent('click'))
+
+        let end = false;
+        view.attachRollInputCallback(function(nb: number) {
+            expect(nb).toBe(3);
+            end = true;
+        })
+        fireEvent(validateButton, new MouseEvent('click'))
+        expect(end).toBe(true)
     })
 
-    test('String', () => {
-        pinInput.value = 'Jean-Michel'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('visible')
-        expect(pinError.innerHTML).toBe('Error')
-    })
-
-    test('Valid-Valid input', () => {
-        pinInput.value = '1'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('hidden')
-        expect(pinError.innerHTML).toBe('')
-        pinInput.value = '4'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('hidden')
-        expect(pinError.innerHTML).toBe('')
-    })
-
-    test('Invalid-Valid input', () => {
-        pinInput.value = 'a'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('visible')
-        expect(pinError.innerHTML).toBe('Error')
-        pinInput.value = '5'
-        fireEvent(pinSubmit, new MouseEvent('click'))
-        expect(pinError.style.visibility).toBe('hidden')
-        expect(pinError.innerHTML).toBe('')
-    })
 })
  
