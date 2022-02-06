@@ -1,0 +1,25 @@
+name: Run tests
+
+on: [ push, pull_request ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install the dependencies
+        run: npm install
+
+      - name: Run the tests
+        run: npm run test
+
+      - name: Build # even if the tests pass, the build may fail
+        run: npm run build
