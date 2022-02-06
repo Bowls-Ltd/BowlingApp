@@ -24,6 +24,9 @@ import {initGame} from "../src/Init"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
+let scrollIntoViewMock = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
 describe('ConfigFormView', () => {
     let view, configForm, button, error,
         nplayersTitle, nplayersInput, decrPlayersButton, incrPlayersButton,
