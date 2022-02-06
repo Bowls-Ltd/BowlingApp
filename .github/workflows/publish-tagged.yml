@@ -6,7 +6,8 @@ on:
       - "v*.*.*"
 
 jobs:
-  build:
+  publish-tagged:
+    if: github.repository == 'Bowls-Ltd/BowlingApp'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
