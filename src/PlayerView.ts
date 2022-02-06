@@ -47,11 +47,9 @@ class PlayerView {
         }
         rootElement.appendChild(this.firstRow);
         rootElement.appendChild(this.secondRow)
-        console.log("add")
     }
 
     public update(p: Player) {
-        console.log("updating " + p.getName())
         if (p.isPlaying()) {
             this.playerNameCell.className = "active-player";
         }
@@ -108,9 +106,6 @@ class PlayerView {
     }
 
     public winnerDisplay() {
-        // TODO
-        //this.playerNameCell.textContent =  "winner";
-        console.log("winner")
         this.firstRow.classList.add("winner");
         this.secondRow.classList.add("winner");
         this.playerNameCell.className = "winner";
