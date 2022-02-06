@@ -1,9 +1,13 @@
-name: Test and deploy to dev
+name: Publish dev version
 
-on: [ push, pull_request, workflow_dispatch ]
+on:
+  push:
+    branches:
+      - dev
 
 jobs:
-  test-n-deploy:
+  publish-dev:
+    if: github.repository == 'Bowls-Ltd/BowlingApp'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,11 +25,10 @@ jobs:
       - name: Run the tests
         run: npm run test
 
-      - name: Build # even if the tests pass, the build may fail
+      - name: Build
         run: npm run build
 
       - name: Deploy
-        if: github.repository == 'Bowls-Ltd/BowlingApp'
         run: |
           eval $(ssh-agent)
           ssh-add - <<<"$SSH_KEY"
