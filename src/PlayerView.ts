@@ -102,6 +102,7 @@ class PlayerView {
         {
             let ind = turn.length -1
             this.firstRowCells[2*ind + turn[ind].getShots().length].className = "next-cell"
+            this.firstRowCells[2*ind + turn[ind].getShots().length].scrollIntoView()
         }
     }
 
