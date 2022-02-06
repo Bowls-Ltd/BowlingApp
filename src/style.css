@@ -52,21 +52,8 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
-
-/* @media (max-height: 400px) {
-    .game-title {
-        font-size: var(--size2);
-        margin-bottom: var(--size1);
-    }
-}
-
-@media (min-height: 400px) {
-    .game-title {
-        font-size: var(--size2);
-        margin-bottom: var(--size2);
-    }
-} */
 
 .button-up {
     display: inherit;
@@ -188,22 +175,10 @@ body {
     align-items: center;
     justify-content: center;
 }
-/* 
-@media (max-height: 400px){
-    .rollinput-view-text {
-        visibility: collapse;
-    }
+
+.rollinput-view-text {
+    margin-right: var(--size1);
 }
-
-@media (min-height: 400px){
-    .rollinput-view-text {
-        margin-right: var(--size1);
-        font-size: var(--size2);
-    }
-} */
-
-
-
 
 /* PLAYER VIEW */
 
