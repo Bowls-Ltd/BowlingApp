@@ -65,6 +65,10 @@ class RollInputView {
         this.pinError.style.visibility = "hidden"
         this.pinError.innerHTML = "" 
     }
+
+    public update(remainingPins : number) {
+        return this.pinSelector.update(remainingPins);
+    }
 }
 
 type RollInputCallback = (pinCount: number) => void
