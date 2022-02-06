@@ -27,7 +27,6 @@ class LeaderBoardView {
     }
 
     public displayWinners(winners : Array<Player>) : void {
-        // TODO
         for (let p of winners) {
             this.playerViews.get(p).winnerDisplay();
         }
