@@ -3,26 +3,11 @@
     src: url("./fonts/Pixel Gosub.ttf");
 }
 
-
-
-@media (min-height: 400px)
-{
-    :root {
-        --size1: 1rem;
-        --size2: 2rem;
-        --size3: 3rem;
-    }
+:root {
+    --size1: 0.7rem;
+    --size2: 1.5rem;
+    --size3: 2rem;
 }
-
-@media (max-height: 400px)
-{
-    :root {
-       --size1: 0.7rem;
-       --size2: 1.5rem;
-       --size3: 2rem;
-    }
-}
-
 
 body {
     margin: 0;
@@ -64,20 +49,11 @@ body {
     background: rgba(255,255,255,0.7);
     padding: var(--size2);
     border-radius: var(--size2);
-}
-
-@media (max-height: 400px) {
-    .game-title {
-        font-size: var(--size2);
-        margin-bottom: var(--size1);
-    }
-}
-
-@media (min-height: 400px) {
-    .game-title {
-        font-size: var(--size2);
-        margin-bottom: var(--size2);
-    }
+    max-height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .button-up {
@@ -201,21 +177,9 @@ body {
     justify-content: center;
 }
 
-@media (max-height: 400px){
-    .rollinput-view-text {
-        visibility: collapse;
-    }
+.rollinput-view-text {
+    margin-right: var(--size1);
 }
-
-@media (min-height: 400px){
-    .rollinput-view-text {
-        margin-right: var(--size1);
-        font-size: var(--size2);
-    }
-}
-
-
-
 
 /* PLAYER VIEW */
 
@@ -242,6 +206,7 @@ body {
 /* CONFETTIS */
 
 .confetti-view-container {
+    pointer-events: none;
     top: 0;
     left: 0;
     z-index: 1;
@@ -372,4 +337,8 @@ td {
 
 .next-cell {
     background-color: rgba(81, 28, 99, 0.4);
+}
+
+.player-div {
+    overflow: scroll;
 }

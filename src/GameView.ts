@@ -31,6 +31,7 @@ class GameView {
 
         this.playerDiv = document.createElement('div')
         this.playerDiv.id = 'player-div'
+        this.playerDiv.classList.add('player-div')
 
         this.leaderBoardView = new LeaderBoardView(this.playerDiv, game.getPlayers())
 
