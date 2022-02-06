@@ -172,4 +172,10 @@ describe('ConfigFormView', () => {
             expect(actualPinCount).toBe(i);
         }
     })
+
+    test('printError', () => {
+        view.printError("This is an error message.");
+        expect(view.errorBox.innerHTML).toBe("This is an error message.");
+        expect(view.errorBox.style.visibility).toBe("visible");
+    })
 })
