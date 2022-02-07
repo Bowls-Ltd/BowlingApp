@@ -58,4 +58,5 @@ function partyTime() {
     confettiView.toggle()
 }
 
+
 export { init, initGame }
