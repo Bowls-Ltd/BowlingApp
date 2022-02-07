@@ -83,9 +83,6 @@ describe("Test Game class", () => {
 
         test("Game ending 1 winner" , () => {
             const game = new Game(3, 10)
-            let end : Boolean = false;
-            let f = () => { end = true; }
-            game.attachGameEndedCallback(f)
             game.startPlaying()
             const players = game["players"]
             for(let turnInd = 0; turnInd < 10; turnInd = turnInd + 1)
@@ -100,15 +97,11 @@ describe("Test Game class", () => {
             expect(game.hasEnded()).toBe(true);
             expect(game.getWinners().length).toBe(1)
             expect(game.getWinners()[0].getName()).toBe("Joueur 3");
-            expect(end).toBe(true)
        }); 
 
         test("Game ending 2 winners" , () => {
                 const game = new Game(3, 10)
                 game.startPlaying()
-                let end : Boolean = false;
-                let f = () => { end = true; }
-                game.attachGameEndedCallback(f)
                 const players = game["players"]
                 for(let turnInd = 0; turnInd < 10; turnInd = turnInd + 1)
                 {
@@ -126,7 +119,6 @@ describe("Test Game class", () => {
                 expect(game.getWinners().length).toBe(2)
                 expect(game.getWinners()[0].getName()).toBe("Joueur 2")
                 expect(game.getWinners()[1].getName()).toBe("Joueur 3")
-                expect(end).toBe(true)
         }); 
     });
 });

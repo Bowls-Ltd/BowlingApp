@@ -5,8 +5,6 @@ class Game {
     private players : Array<Player>;
     private nbPins: number;
     private currentPlayerIdx : number;
-    private onGameEndedCallback : Array<GameEndedCallback>;
-
 
     public constructor(nbPlayers : number, nbPins: number) {
         if (Number.isNaN(nbPlayers))
@@ -26,7 +24,6 @@ class Game {
         this.nbPins = nbPins;
 
         this.currentPlayerIdx = 0;
-        this.onGameEndedCallback = new Array<GameEndedCallback>();
     }
 
     public startPlaying() {
@@ -70,9 +67,7 @@ class Game {
     }
 
     public nextPlayer() {
-        if (this.hasEnded())
-            this.notityGameEnded();
-        else
+        if (!this.hasEnded())
         {
             this.currentPlayerIdx = this.currentPlayerIdx + 1;
             if (this.currentPlayerIdx >= this.players.length)
@@ -81,17 +76,7 @@ class Game {
         }
     }
 
-    public attachGameEndedCallback(callback : GameEndedCallback) {
-        this.onGameEndedCallback.push(callback);
-    }
-
-    private notityGameEnded() {
-        for(let c of this.onGameEndedCallback)
-            c();
-    }
-
 }
 
-type GameEndedCallback = () => void;
 
 export { Game }

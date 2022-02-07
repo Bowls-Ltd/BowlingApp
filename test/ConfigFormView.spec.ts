@@ -24,6 +24,9 @@ import {initGame} from "../src/Init"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
+let scrollIntoViewMock = jest.fn();
+window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
 describe('ConfigFormView', () => {
     let view, configForm, button, error,
         nplayersTitle, nplayersInput, decrPlayersButton, incrPlayersButton,
@@ -118,46 +121,6 @@ describe('ConfigFormView', () => {
         setPinsInput(5);
         fireEvent(button, new MouseEvent('click'))
         expect(document.querySelector('#config-form')).toBeNull();
-    })
-
-    test.skip('Negative player number', () => {
-        setPlayerInput(-5);
-        setPinsInput(5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Negative pin number', () => {
-        setPlayerInput(5);
-        setPinsInput(-5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPins must be positive')
-    })
-
-    test.skip('Negative player and pin number', () => {
-        setPlayerInput(-5);
-        setPinsInput(-5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Zero player', () => {
-        setPlayerInput(0);
-        setPinsInput(5);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPlayers must be positive')
-    })
-
-    test.skip('Zero pins', () => {
-        setPlayerInput(5);
-        setPinsInput(0);
-        fireEvent(button, new MouseEvent('click'))
-        expect(error.style.visibility).toBe('visible')
-        expect(error.innerHTML).toBe('Error: Invalid parameter : nbPins must be positive')
     })
 
     test('GameCreationCallback', () => {
