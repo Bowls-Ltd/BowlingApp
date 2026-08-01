@@ -5,8 +5,7 @@ It is also possible to play with less than 10 pins.
 
 ## Online usage
 
-Stable version available here: https://www.tenpins.fun  
-Development version available here: https://dev.tenpins.fun
+Development version available here: https://bowls-ltd.github.io/BowlingApp/
 
 ## Local usage
 
