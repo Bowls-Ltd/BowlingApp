@@ -12,6 +12,7 @@
 body {
     margin: 0;
     padding: var(--size1);
+    padding-bottom: 3.5rem;
     box-sizing: border-box;
     background:  url("./images/background.png");
     background-repeat: no-repeat;
@@ -24,7 +25,7 @@ body {
 /* COMMON */
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .main-container {
@@ -341,4 +342,61 @@ td {
 
 .player-div {
     overflow: scroll;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    background: rgba(255,255,255,0.9);
+    border-top: 1px solid black;
+    z-index: 2;
+}
+
+.bottom-nav-item {
+    flex: 1;
+    text-align: center;
+    padding: var(--size1);
+    cursor: pointer;
+    font-size: var(--size1);
+}
+
+.bottom-nav-item.active {
+    color: red;
+    font-weight: bold;
+}
+
+/* MY BOWLING VIEW */
+
+.my-bowling-view-div {
+    background: rgba(255,255,255,0.7);
+    text-align: left;
+}
+
+.my-bowling-section-title {
+    font-size: var(--size1);
+    font-weight: bold;
+    margin-top: var(--size2);
+    margin-bottom: var(--size1);
+}
+
+.my-bowling-current-score ul,
+.my-bowling-history ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 30vh;
+}
+
+.my-bowling-current-score li,
+.my-bowling-history li {
+    font-size: var(--size1);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
 }

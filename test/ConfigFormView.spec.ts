@@ -21,6 +21,7 @@ import '@testing-library/jest-dom'
 import {ConfigFormView} from "../src/ConfigFormView"
 // import {Game} from "../src/Game"
 import {initGame} from "../src/Init"
+import {MyBowlingView} from "../src/MyBowlingView"
 
 const html = fs.readFileSync(path.resolve(__dirname, "../src/index.html"))
 
@@ -56,7 +57,10 @@ describe('ConfigFormView', () => {
         document.documentElement.innerHTML = html.toString();
         const mainContainer = document.getElementById('main-container');
         view = new ConfigFormView(mainContainer);
-        view.attachGameCreationCallback(initGame);
+        const myBowlingView = new MyBowlingView(document.createElement('div'));
+        view.attachGameCreationCallback((view_, nbPlayers_, nbPins_) => {
+            initGame(view_, nbPlayers_, nbPins_, myBowlingView);
+        });
 
         configForm = document.querySelector('#config-form');
         expect(configForm).not.toBeNull();
